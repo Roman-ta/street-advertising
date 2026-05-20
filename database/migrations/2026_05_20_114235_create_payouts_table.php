@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('payouts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('partner_id')->constrained('users');
+            $table->foreignId('order_item_id')->constrained('order_items');
+            $table->decimal('amount', 10, 2);
+            $table->enum('status', ['pending','paid'])->default('pending');
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
     }
