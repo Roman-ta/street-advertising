@@ -19,18 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->enum('role', ['client', 'partner', 'admin'])->default('client');
-            $table->string('phone')->nullable();
-            $table->string('lang', 2)->default('ru');
-            $table->boolean('is_active')->default(true);
-            $table->boolean('legal_signed')->default(false);
-            $table->timestamp('legal_signed_at')->nullable();
-            $table->string('idno', 20)->nullable();       // молд. ID компании
-            $table->string('iban')->nullable();           // для партнёра
-            $table->string('bank_name')->nullable();
-            $table->string('legal_address')->nullable();
-            $table->boolean('profile_complete')->default(false);
-            $table->string('telegram_chat_id')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
