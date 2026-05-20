@@ -4,24 +4,27 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SpotResource\Pages;
 use App\Models\Spot;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+
 
 class SpotResource extends Resource
 {
     protected static ?string $model = Spot::class;
-    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-map-pin';
     protected static ?string $navigationLabel = 'Площадки';
     protected static ?string $modelLabel = 'Площадка';
     protected static ?string $pluralModelLabel = 'Площадки';
     protected static ?int $navigationSort = 1;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form->schema([
+        return $schema->components([
             Forms\Components\Section::make('Основная информация')->schema([
                 Forms\Components\TextInput::make('title')
                     ->label('Название')
@@ -56,13 +59,6 @@ class SpotResource extends Resource
                     ->numeric()
                     ->required(),
             ])->columns(2),
-
-            Forms\Components\Section::make('Модерация')->schema([
-                Forms\Components\Textarea::make('moderation_comment')
-                    ->label('Комментарий модератора')
-                    ->placeholder('Причина отклонения или замечания...')
-                    ->rows(3),
-            ]),
         ]);
     }
 
@@ -70,11 +66,6 @@ class SpotResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('mainPhoto.path')
-                    ->label('Фото')
-                    ->disk('public')
-                    ->width(80)
-                    ->height(60),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Название')
                     ->searchable()
@@ -91,14 +82,15 @@ class SpotResource extends Resource
                 Tables\Columns\TextColumn::make('price_month')
                     ->label('Цена')
                     ->money('USD'),
-                Tables\Columns\BadgeColumn::make('status')
+                Tables\Columns\TextColumn::make('status')
                     ->label('Статус')
-                    ->colors([
-                        'warning' => 'moderation',
-                        'success' => 'active',
-                        'danger'  => 'blocked',
-                        'gray'    => 'draft',
-                    ])
+                    ->badge()
+                    ->color(fn($state) => match($state) {
+                        'moderation' => 'warning',
+                        'active'     => 'success',
+                        'blocked'    => 'danger',
+                        default      => 'gray',
+                    })
                     ->formatStateUsing(fn($state) => match($state) {
                         'moderation' => 'На модерации',
                         'active'     => 'Активна',
@@ -120,17 +112,9 @@ class SpotResource extends Resource
                         'blocked'    => 'Заблокирована',
                         'draft'      => 'Черновик',
                     ]),
-                Tables\Filters\SelectFilter::make('type')
-                    ->label('Тип')
-                    ->options([
-                        'billboard'  => 'Билборд',
-                        'lightbox'   => 'Лайтбокс',
-                        'led_screen' => 'LED экран',
-                    ]),
             ])
-            ->actions([
-                // Быстрое одобрение
-                Tables\Actions\Action::make('approve')
+            ->recordActions([
+                Action::make('approve')
                     ->label('Одобрить')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
@@ -138,8 +122,7 @@ class SpotResource extends Resource
                     ->action(fn(Spot $record) => $record->update(['status' => 'active']))
                     ->requiresConfirmation(),
 
-                // Быстрое отклонение
-                Tables\Actions\Action::make('block')
+                Action::make('block')
                     ->label('Отклонить')
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
@@ -147,10 +130,9 @@ class SpotResource extends Resource
                     ->action(fn(Spot $record) => $record->update(['status' => 'blocked']))
                     ->requiresConfirmation(),
 
-                Tables\Actions\EditAction::make()->label('Изменить'),
+                EditAction::make()->label('Изменить'),
             ])
-            ->defaultSort('created_at', 'desc')
-            ->defaultPaginationPageOption(25);
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getPages(): array
@@ -161,9 +143,8 @@ class SpotResource extends Resource
         ];
     }
 
-    // Показываем только площадки на модерации по умолчанию
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return parent::getEloquentQuery()->with(['partner', 'mainPhoto']);
+        return parent::getEloquentQuery()->with(['partner']);
     }
 }

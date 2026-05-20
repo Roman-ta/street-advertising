@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Partner\SpotForm;
+use App\Livewire\Partner\SpotList;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\Auth\Register;
@@ -94,4 +96,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+    Route::get('/partner/spots', SpotList::class)->name('partner.spots');
+    Route::get('/partner/spots/create', SpotForm::class)->name('partner.spots.create');
+    Route::get('/partner/spots/{spotId}/edit', SpotForm::class)->name('partner.spots.edit');
+
 });

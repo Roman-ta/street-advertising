@@ -13,6 +13,8 @@
 <p>Добро пожаловать, {{ auth()->user()->name }}</p>
 <p>Оферта принята: {{ auth()->user()->legal_signed ? 'ДА' : 'НЕТ' }}</p>
 
+<a href="{{ route('partner.spots') }}">Мои площадки</a>
+
 <form method="POST" action="{{ route('logout') }}">
     @csrf
     <button type="submit">Выйти</button>
