@@ -11,7 +11,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton('auth.password', function ($app) {
+            return new \Illuminate\Auth\Passwords\PasswordBrokerManager($app);
+        });
     }
 
     /**

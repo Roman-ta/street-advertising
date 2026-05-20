@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('spot_id')->constrained()->onDelete('cascade');
+            $table->date('date_from');
+            $table->date('date_to');
+            $table->decimal('price', 10, 2);
+            $table->decimal('commission', 10, 2)->default(0);
+            $table->timestamp('placement_started_at')->nullable(); // таймер монтажа
+            $table->timestamp('placement_ends_at')->nullable();
             $table->timestamps();
         });
     }

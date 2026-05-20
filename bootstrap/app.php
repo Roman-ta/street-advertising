@@ -19,6 +19,20 @@ return Application::configure(basePath: dirname(__DIR__))
             'legal_signed'     => CheckLegalSigned::class,
             'profile_complete' => CheckProfileComplete::class,
         ]);
+
+        // Куда редиректить гостей (незалогиненных)
+        $middleware->redirectGuestsTo('/login');
+
+        // Куда редиректить залогиненных если они идут на /register или /login
+        $middleware->redirectUsersTo(function () {
+            if (!auth()->check()) return '/login';
+
+            return match(auth()->user()->role) {
+                'admin'   => '/admin/dashboard',
+                'partner' => '/partner/dashboard',
+                default   => '/client/dashboard',
+            };
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

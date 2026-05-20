@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->enum('type', ['invoice','act_client','act_partner']);
+            $table->string('path');
+            $table->timestamp('generated_at')->nullable();
             $table->timestamps();
         });
     }

@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('order_files', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('uploader_id')->constrained('users');
+            $table->enum('type', ['material', 'photo_report']);
+            $table->string('path');
+            $table->string('s3_key')->nullable();
+            $table->string('mime_type')->nullable();
+            $table->bigInteger('size_bytes')->nullable();
+            $table->timestamp('signed_url_expires_at')->nullable();
             $table->timestamps();
         });
     }

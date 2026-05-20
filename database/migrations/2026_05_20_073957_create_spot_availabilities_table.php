@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('spot_availabilities', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('spot_id')->constrained()->onDelete('cascade');
+            $table->date('date_from');
+            $table->date('date_to');
+            $table->enum('status', ['reserved','occupied','manual_block'])->default('reserved');
             $table->timestamps();
+
+            // Критично — защита от двойного бронирования
+            $table->index(['spot_id', 'date_from', 'date_to']);
         });
     }
 
