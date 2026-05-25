@@ -1,0 +1,56 @@
+.header {
+    border-bottom: 1px solid $gray-200;
+    position: sticky;
+    top: 0;
+    background: $white;
+    z-index: 100;
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+    }
+
+    &__logo {
+        font-size: 20px;
+        font-weight: 700;
+        color: $purple;
+        text-decoration: none;
+
+        &:hover { color: $purple-light; }
+    }
+
+    &__nav {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+    }
+
+    &__link {
+        color: $gray-800;
+        font-size: $font-size-sm;
+        transition: color $transition;
+
+        &:hover { color: $purple; }
+    }
+
+    &__cart {
+        position: relative;
+
+        &-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: $purple;
+            color: $white;
+            width: 18px;
+            height: 18px;
+            border-radius: $radius-full;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

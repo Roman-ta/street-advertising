@@ -1,91 +1,62 @@
-<div class="auth-container">
+<div>
+    <div class="role-cards">
+        <button
+            wire:click="selectRole('client')"
+            class="role-card {{ $role === 'client' ? 'role-card--active' : '' }}"
+        >
+            <span class="role-card__icon">🏢</span>
+            <span class="role-card__title">Рекламодатель</span>
+            <span class="role-card__desc">Ищу места для рекламы</span>
+        </button>
 
-    {{-- Шаг 1: Выбор роли --}}
-    <div class="role-select">
-        <h2>Создать аккаунт</h2>
-        <p class="subtitle">Кто вы на платформе?</p>
-
-        <div class="role-cards">
-
-            <button
-                wire:click="selectRole('client')"
-                class="role-card {{ $role === 'client' ? 'active' : '' }}"
-            >
-                <span class="role-icon">🏢</span>
-                <span class="role-title">Рекламодатель</span>
-                <span class="role-desc">Ищу места для рекламы</span>
-            </button>
-
-            <button
-                wire:click="selectRole('partner')"
-                class="role-card {{ $role === 'partner' ? 'active' : '' }}"
-            >
-                <span class="role-icon">📍</span>
-                <span class="role-title">Владелец площадок</span>
-                <span class="role-desc">Сдаю места в аренду</span>
-            </button>
-
-        </div>
-
-        @error('role')
-        <p class="error">{{ $message }}</p>
-        @enderror
+        <button
+            wire:click="selectRole('partner')"
+            class="role-card {{ $role === 'partner' ? 'role-card--active' : '' }}"
+        >
+            <span class="role-card__icon">📍</span>
+            <span class="role-card__title">Владелец площадок</span>
+            <span class="role-card__desc">Сдаю места в аренду</span>
+        </button>
     </div>
 
-    {{-- Форма --}}
+    @error('role')
+    <div class="alert alert--error">{{ $message }}</div>
+    @enderror
+
     <form wire:submit="submit">
-
-        <div class="field">
-            <label>Имя / Название компании</label>
-            <input
-                type="text"
-                wire:model.live="name"
-                placeholder="SRL Compania Mea"
-            >
-            @error('name') <span class="error">{{ $message }}</span> @enderror
+        <div class="form__group">
+            <label class="form__label">Имя / Название компании</label>
+            <input type="text" wire:model.live="name" placeholder="SRL Compania Mea" class="form__input">
+            @error('name') <span class="form__error">{{ $message }}</span> @enderror
         </div>
 
-        <div class="field">
-            <label>Email</label>
-            <input
-                type="email"
-                wire:model.live="email"
-                placeholder="email@company.md"
-            >
-            @error('email') <span class="error">{{ $message }}</span> @enderror
+        <div class="form__group">
+            <label class="form__label">Email</label>
+            <input type="email" wire:model.live="email" placeholder="email@company.md" class="form__input">
+            @error('email') <span class="form__error">{{ $message }}</span> @enderror
         </div>
 
-        <div class="field">
-            <label>Пароль</label>
-            <input
-                type="password"
-                wire:model="password"
-                placeholder="Минимум 8 символов"
-            >
-            @error('password') <span class="error">{{ $message }}</span> @enderror
+        <div class="form__group">
+            <label class="form__label">Пароль</label>
+            <input type="password" wire:model="password" placeholder="Минимум 8 символов" class="form__input">
+            @error('password') <span class="form__error">{{ $message }}</span> @enderror
         </div>
 
-        <div class="field">
-            <label>Повторите пароль</label>
-            <input
-                type="password"
-                wire:model="password_confirmation"
-                placeholder="Повторите пароль"
-            >
+        <div class="form__group">
+            <label class="form__label">Повторите пароль</label>
+            <input type="password" wire:model="password_confirmation" placeholder="Повторите пароль" class="form__input">
         </div>
 
         <button
             type="submit"
-            class="btn-primary"
+            class="btn btn--primary btn--full btn--lg"
             {{ empty($role) ? 'disabled' : '' }}
         >
             Создать аккаунт
         </button>
-
-        <p class="login-link">
-            Уже есть аккаунт? <a href="{{ route('login') }}">Войти</a>
-        </p>
-
     </form>
 
+    <div class="auth-box__footer">
+        Уже есть аккаунт? <a href="{{ route('login') }}">Войти</a>
+    </div>
 </div>

@@ -1,7 +1,10 @@
 <?php
 
+use App\Livewire\Client\OrderShow;
 use App\Livewire\Partner\SpotForm;
 use App\Livewire\Partner\SpotList;
+use App\Livewire\Public\Cart;
+use App\Livewire\Public\SpotShow;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\Auth\Register;
@@ -11,14 +14,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Str;
+
 // Главная
-Route::get('/', function () {
-    return view('index');
+Route::get('/', fn() => view('pages.home'))->name('home');
+
+// Страница площадки
+Route::get('/spots/{id}', fn($id) => view('pages.spot-show', compact('id')))->name('spots.show');
+
+// Корзина (доступна без авторизации для просмотра)
+Route::get('/cart', fn() => view('pages.cart'))->name('cart');
+
+// Заказ (только для клиента)
+Route::middleware(['auth', 'verified'])->group(function () {
+    // ... существующие роуты ...
+    Route::get('/client/orders/{id}', OrderShow::class)->name('client.orders.show');
 });
 
+
 // ── Аутентификация ──────────────────────────────────────
-Route::get('/register', Register::class)->name('register')->middleware('guest');
-Route::get('/login', Login::class)->name('login')->middleware('guest');
+Route::get('/register', fn() => view('pages.register'))->name('register')->middleware('guest');
+Route::get('/login', fn() => view('pages.login'))->name('login')->middleware('guest');
 
 Route::post('/logout', function () {
     Auth::logout();
@@ -88,6 +103,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/client/dashboard', function () {
         return view('client.dashboard');
     })->name('client.dashboard');
+
+
+
 
     Route::get('/partner/dashboard', function () {
         return view('partner.dashboard');

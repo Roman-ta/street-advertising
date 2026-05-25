@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdSpot</title>
+    <title>@yield('title', 'AdSpot — Рекламные площадки Молдовы')</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @livewireStyles
 </head>
 <body>
 
-{{-- Модалка оферты — висит на всех страницах для авторизованных --}}
 @auth
     <livewire:auth.legal-modal />
 @endauth
 
-{{-- Контент --}}
-{{ $slot }}
+@include('layouts.header')
+
+<main>
+    @yield('content')
+</main>
+
+@include('layouts.footer')
 
 @livewireScripts
 </body>

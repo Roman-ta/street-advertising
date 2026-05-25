@@ -1,0 +1,54 @@
+.hero {
+    background: linear-gradient(135deg, $purple 0%, $purple-light 100%);
+    color: $white;
+    padding: $spacing-3xl $container-pad;
+    text-align: center;
+
+    &__inner {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    &__title {
+        font-size: $font-size-4xl;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: $spacing-md;
+    }
+
+    &__subtitle {
+        font-size: $font-size-lg;
+        opacity: 0.85;
+        margin-bottom: $spacing-xl;
+    }
+
+    &__actions {
+        display: flex;
+        gap: $spacing-md;
+        justify-content: center;
+    }
+
+    &__btn-primary {
+        background: $white;
+        color: $purple;
+        padding: $spacing-md $spacing-xl;
+        border-radius: $radius-md;
+        font-size: $font-size-md;
+        font-weight: 600;
+        transition: all $transition;
+
+        &:hover { transform: translateY(-1px); box-shadow: $shadow-md; }
+    }
+
+    &__btn-outline {
+        border: 2px solid $white;
+        color: $white;
+        padding: $spacing-md $spacing-xl;
+        border-radius: $radius-md;
+        font-size: $font-size-md;
+        transition: all $transition;
+
+        &:hover { background: rgba(255,255,255,0.1); }
+    }
+}
+

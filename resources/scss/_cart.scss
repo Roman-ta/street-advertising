@@ -1,0 +1,237 @@
+.cart {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: $spacing-xl $container-pad;
+
+    &__title {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        margin-bottom: $spacing-lg;
+    }
+
+    &__layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: $spacing-xl;
+        align-items: start;
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+    }
+
+    &__item {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        display: flex;
+        gap: $spacing-md;
+    }
+
+    &__item-photo {
+        width: 100px;
+        height: 70px;
+        background: $gray-100;
+        border-radius: $radius-md;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+    }
+
+    &__item-info { flex: 1; }
+
+    &__item-title {
+        font-weight: 600;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__item-address {
+        font-size: $font-size-sm;
+        color: $gray-600;
+        margin-bottom: $spacing-sm;
+    }
+
+    &__item-dates {
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+
+    &__item-right { text-align: right; flex-shrink: 0; }
+
+    &__item-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: $purple;
+        margin-bottom: $spacing-sm;
+    }
+
+    &__remove {
+        background: none;
+        border: none;
+        color: $red;
+        font-size: $font-size-sm;
+        cursor: pointer;
+
+        &:hover { text-decoration: underline; }
+    }
+
+    &__summary {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        position: sticky;
+        top: $spacing-lg;
+    }
+
+    &__summary-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: $spacing-md;
+    }
+
+    &__summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-sm;
+
+        span:first-child { color: $gray-600; }
+    }
+
+    &__summary-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 700;
+        padding-top: $spacing-md;
+        border-top: 1px solid $gray-200;
+        margin-bottom: $spacing-md;
+
+        span:last-child { color: $purple; }
+    }
+
+    &__continue {
+        display: block;
+        text-align: center;
+        margin-top: $spacing-md;
+        color: $gray-600;
+        font-size: $font-size-sm;
+
+        &:hover { color: $purple; }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 80px 0;
+        color: $gray-400;
+
+        p:first-child {
+            font-size: 20px;
+            margin-bottom: $spacing-md;
+        }
+
+        a { color: $purple; }
+    }
+}
+// Страница заказа
+.order-show {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: $spacing-xl $container-pad;
+
+    &__hero {
+        text-align: center;
+        padding: $spacing-xl 0;
+        margin-bottom: $spacing-xl;
+
+        &-emoji { font-size: 48px; margin-bottom: $spacing-md; }
+
+        h2 {
+            font-size: $font-size-2xl;
+            font-weight: 700;
+            margin-bottom: $spacing-xs;
+        }
+
+        p { color: $gray-600; }
+    }
+
+    &__status {
+        background: $yellow-light;
+        border: 1px solid #FDE68A;
+        border-radius: $radius-lg;
+        padding: $spacing-md;
+        margin-bottom: $spacing-lg;
+        text-align: center;
+        color: $yellow-dark;
+        font-size: 15px;
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+        margin-bottom: $spacing-lg;
+    }
+
+    &__item {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        display: flex;
+        gap: $spacing-md;
+        align-items: center;
+    }
+
+    &__item-photo {
+        width: 100px;
+        height: 70px;
+        background: $gray-100;
+        border-radius: $radius-md;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+    }
+
+    &__item-info { flex: 1; }
+
+    &__item-title {
+        font-weight: 600;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__item-dates {
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+
+    &__item-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: $purple;
+        flex-shrink: 0;
+    }
+
+    &__total {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        margin-bottom: $spacing-lg;
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 700;
+
+        span:last-child { color: $purple; }
+    }
+
+    &__hint {
+        text-align: center;
+        color: $gray-400;
+        font-size: $font-size-xs;
+        margin-top: $spacing-md;
+    }
+}

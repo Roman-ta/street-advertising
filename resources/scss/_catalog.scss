@@ -1,0 +1,238 @@
+.catalog {
+    padding: $spacing-2xl 0;
+
+    &__title {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin-bottom: $spacing-xl;
+    }
+
+    &__count {
+        color: $gray-600;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-md;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: $spacing-lg;
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 80px 0;
+        color: $gray-400;
+
+        p:first-child {
+            font-size: 20px;
+            margin-bottom: $spacing-sm;
+        }
+    }
+}
+
+// Фильтры
+.filters {
+    background: $gray-50;
+    padding: $spacing-lg;
+    border-radius: $radius-lg;
+    margin-bottom: $spacing-xl;
+
+    &__search {
+        width: 100%;
+        padding: 12px $spacing-md;
+        border: 1px solid $gray-200;
+        border-radius: $radius-md;
+        font-size: $font-size-md;
+        margin-bottom: $spacing-md;
+        transition: border-color $transition;
+
+        &:focus {
+            outline: none;
+            border-color: $purple;
+        }
+    }
+
+    &__types {
+        display: flex;
+        gap: $spacing-sm;
+        flex-wrap: wrap;
+        margin-bottom: $spacing-md;
+    }
+
+    &__type-btn {
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-full;
+        border: 1px solid $gray-200;
+        background: $white;
+        font-size: $font-size-sm;
+        cursor: pointer;
+        transition: all $transition;
+
+        &:hover { border-color: $purple; color: $purple; }
+
+        &--active {
+            background: $purple;
+            color: $white;
+            border-color: $purple;
+        }
+    }
+
+    &__row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: $spacing-md;
+        align-items: center;
+    }
+
+    &__select {
+        padding: 10px $spacing-md;
+        border: 1px solid $gray-200;
+        border-radius: $radius-md;
+        background: $white;
+        width: 100%;
+        transition: border-color $transition;
+
+        &:focus { outline: none; border-color: $purple; }
+    }
+
+    &__checkbox {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        cursor: pointer;
+        font-size: $font-size-sm;
+
+        input { width: 18px; height: 18px; }
+    }
+
+    &__reset {
+        padding: 10px $spacing-md;
+        border: 1px solid $gray-200;
+        border-radius: $radius-md;
+        background: $white;
+        color: $gray-600;
+        width: 100%;
+        transition: all $transition;
+
+        &:hover { border-color: $red; color: $red; }
+    }
+}
+
+// Карточка площадки
+.spot-card {
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    transition: box-shadow $transition;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+
+    &:hover {
+        box-shadow: $shadow-md;
+        transform: translateY(-2px);
+    }
+
+    &__image {
+        height: 200px;
+        background: $gray-100;
+        position: relative;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__no-photo {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $gray-400;
+        font-size: $font-size-sm;
+    }
+
+    &__badges {
+        position: absolute;
+        top: $spacing-md;
+        left: $spacing-md;
+        right: $spacing-md;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__type-badge {
+        background: rgba(91,33,182,0.9);
+        color: $white;
+        padding: $spacing-xs 10px;
+        border-radius: $radius-full;
+        font-size: $font-size-xs;
+    }
+
+    &__light-badge {
+        background: rgba(0,0,0,0.6);
+        color: #fbbf24;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $radius-full;
+        font-size: 11px;
+    }
+
+    &__body {
+        padding: $spacing-md;
+    }
+
+    &__title {
+        font-size: $font-size-md;
+        font-weight: 600;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__address {
+        color: $gray-600;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-md;
+    }
+
+    &__meta {
+        display: flex;
+        gap: $spacing-md;
+        margin-bottom: $spacing-md;
+        font-size: 13px;
+        color: $gray-600;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__price {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+
+        span {
+            font-size: $font-size-sm;
+            white-space: nowrap;
+            color: $gray-600;
+        }
+    }
+
+    &__cta {
+        background: $purple;
+        color: $white;
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-md;
+        font-size: $font-size-sm;
+        transition: background $transition;
+
+        &:hover { background: $purple-light; }
+    }
+
+}

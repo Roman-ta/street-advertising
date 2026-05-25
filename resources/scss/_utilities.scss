@@ -1,0 +1,48 @@
+.container {
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: 0 $container-pad;
+}
+
+.text-purple { color: $purple; }
+.text-gray   { color: $gray-600; }
+.text-muted  { color: $gray-400; }
+
+.badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: 600;
+
+    &--purple  { background: $purple;      color: $white; }
+    &--gray    { background: $gray-100;    color: $gray-800; }
+    &--green   { background: $green-light; color: $green-dark; }
+    &--yellow  { background: $yellow-light;color: $yellow-dark; }
+    &--red     { background: $red-light;   color: $red-dark; }
+}
+
+.alert {
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-md;
+
+    &--error   { background: $red-light;    color: $red-dark; }
+    &--success { background: $green-light;  color: $green-dark; }
+    &--warning { background: $yellow-light; color: $yellow-dark; }
+    &--info    { background: $purple-pale;  color: $purple; }
+}
+
+
+.footer {
+    border-top: 1px solid $gray-200;
+    margin-top: $spacing-2xl;
+
+    &__inner {
+        padding: $spacing-xl 0;
+        text-align: center;
+        color: $gray-400;
+        font-size: $font-size-sm;
+    }
+}
