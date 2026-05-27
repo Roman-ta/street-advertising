@@ -100,12 +100,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 // ── Кабинеты ────────────────────────────────────────────
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/client/dashboard', function () {
-        return view('client.dashboard');
-    })->name('client.dashboard');
-
-
-
+    Route::get('/client/dashboard', fn() => view('pages.client.dashboard'))
+        ->name('client.dashboard');
+    Route::get('/client/orders', fn() => view('pages.client.orders'))
+        ->name('client.orders');
 
     Route::get('/partner/dashboard', function () {
         return view('partner.dashboard');
@@ -118,5 +116,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/partner/spots', SpotList::class)->name('partner.spots');
     Route::get('/partner/spots/create', SpotForm::class)->name('partner.spots.create');
     Route::get('/partner/spots/{spotId}/edit', SpotForm::class)->name('partner.spots.edit');
+
+    Route::get('/partner/dashboard', fn() => view('pages.partner.dashboard'))
+        ->name('partner.dashboard');
+
+    Route::get('/partner/orders', fn() => view('pages.partner.orders'))
+        ->name('partner.orders');
+    Route::get('/partner/orders', fn() => view('pages.partner.orders'))
+        ->name('partner.orders');
 
 });
