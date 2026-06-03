@@ -32,3 +32,11 @@ input, select, textarea {
     font-family: $font-main;
     font-size: $font-size-md;
 }
+
+
+.container{
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+    width: 100%;
+}

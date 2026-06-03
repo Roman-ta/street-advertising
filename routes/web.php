@@ -111,9 +111,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::get('/partner/spots', SpotList::class)->name('partner.spots');
+    Route::get('/partner/spots', fn() => view('pages.partner.spots'))->name('partner.spots');
     Route::get('/partner/spots/create', SpotForm::class)->name('partner.spots.create');
     Route::get('/partner/spots/{spotId}/edit', SpotForm::class)->name('partner.spots.edit');
+    Route::get('/partner/spots/{spotId}/edit', fn() => view('pages.partner.spots-form'))->name('partner.spots-form');
 
     Route::get('/partner/dashboard', fn() => view('pages.partner.dashboard'))
         ->name('partner.dashboard');

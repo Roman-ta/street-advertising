@@ -47,7 +47,16 @@
             </select>
 
             <div class="filters__price">
-                <span>До $</span>
+                <span>От</span>
+                <input
+                    type="number"
+                    wire:model.live.debounce.500ms="price_min"
+                    class="filters__select"
+                >
+            </div>
+
+            <div class="filters__price">
+                <span>До</span>
                 <input
                     type="number"
                     wire:model.live.debounce.500ms="price_max"

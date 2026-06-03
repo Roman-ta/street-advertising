@@ -147,3 +147,75 @@
         margin-top: $spacing-lg;
     }
 }
+
+
+// Добавь в конец _partner.scss
+
+.partner-nav {
+    display: flex;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-xl;
+    border-bottom: 2px solid $gray-200;
+    padding-bottom: 0;
+
+    &__item {
+        padding: $spacing-sm $spacing-md;
+        color: $gray-600;
+        font-size: $font-size-sm;
+        font-weight: 500;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: all $transition;
+        text-decoration: none;
+
+        &:hover { color: $purple; }
+
+        &--active {
+            color: $purple;
+            border-bottom-color: $purple;
+            font-weight: 600;
+        }
+    }
+}
+
+.partner-welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    padding: $spacing-lg;
+    background: linear-gradient(135deg, $purple-pale, $white);
+    border-radius: $radius-lg;
+    border: 1px solid $gray-200;
+
+    &__info {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+    }
+
+    &__avatar {
+        width: 52px;
+        height: 52px;
+        background: $purple;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        font-size: 20px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    &__name {
+        font-size: $font-size-lg;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    &__role {
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+}

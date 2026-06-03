@@ -164,3 +164,98 @@
         font-weight: 400;
     }
 }
+.auth-page {
+    min-height: calc(100vh - 64px - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-xl 0;
+    background: linear-gradient(135deg, $purple-pale 0%, $white 60%);
+}
+
+.auth-box {
+    background: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-xl $spacing-xl;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: $shadow-lg;
+    border: 1px solid $gray-200;
+
+    &__logo {
+        text-align: center;
+        margin-bottom: $spacing-lg;
+
+        span {
+            font-size: 28px;
+            font-weight: 700;
+            color: $purple;
+        }
+    }
+
+    &__title {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        margin-bottom: $spacing-xs;
+        text-align: center;
+    }
+
+    &__subtitle {
+        color: $gray-600;
+        margin-bottom: $spacing-xl;
+        text-align: center;
+        font-size: $font-size-sm;
+    }
+
+    &__divider {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        margin: $spacing-lg 0;
+        color: $gray-400;
+        font-size: $font-size-sm;
+
+        &::before, &::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: $gray-200;
+        }
+    }
+
+    &__footer {
+        text-align: center;
+        margin-top: $spacing-lg;
+        font-size: $font-size-sm;
+        color: $gray-600;
+
+        a {
+            color: $purple;
+            font-weight: 600;
+            &:hover { text-decoration: underline; }
+        }
+    }
+
+    &__forgot {
+        color: $purple;
+        font-size: $font-size-sm;
+        &:hover { text-decoration: underline; }
+    }
+}
+
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-sm;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        cursor: pointer;
+        color: $gray-600;
+        font-weight: 400;
+    }
+}

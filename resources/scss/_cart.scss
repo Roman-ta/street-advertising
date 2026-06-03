@@ -342,3 +342,135 @@
     &--completed       { background: $gray-100;     color: $gray-800;    border: 1px solid $gray-200; }
     &--cancelled       { background: $red-light;    color: $red-dark;    border: 1px solid #FCA5A5; }
 }
+// Адаптивность
+@media (max-width: 768px) {
+    .cart {
+        padding: $spacing-md;
+
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+
+        &__item {
+            flex-wrap: wrap;
+        }
+
+        &__item-right {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: $spacing-sm;
+        }
+
+        &__summary {
+            position: static;
+        }
+    }
+
+    .order-show {
+        padding: $spacing-md;
+
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .spot-show {
+        padding: $spacing-md;
+
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+
+        &__booking {
+            position: static;
+            margin-top: $spacing-lg;
+        }
+    }
+
+    .client-dashboard {
+        padding: $spacing-md;
+
+        &__hero {
+            flex-direction: column;
+            gap: $spacing-md;
+            align-items: flex-start;
+        }
+
+        &__stats {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .partner-page {
+        padding: $spacing-md;
+    }
+
+    .partner-header {
+        flex-direction: column;
+        gap: $spacing-md;
+        align-items: flex-start;
+    }
+
+    .spot-row {
+        flex-wrap: wrap;
+
+        &__actions {
+            width: 100%;
+            justify-content: flex-end;
+            margin-top: $spacing-sm;
+        }
+    }
+
+    .hero {
+        padding: 48px $spacing-md;
+
+        &__title { font-size: 36px; }
+
+        &__stats {
+            gap: $spacing-lg;
+        }
+
+        &__stat strong { font-size: 22px; }
+    }
+
+    .catalog__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filters__row {
+        grid-template-columns: 1fr;
+    }
+
+    .header__nav {
+        gap: $spacing-sm;
+    }
+
+    .auth-box {
+        padding: $spacing-lg;
+    }
+
+    .map-section {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .client-dashboard__stats {
+        grid-template-columns: 1fr;
+    }
+
+    .hero__actions {
+        flex-direction: column;
+        align-items: center;
+
+        a { width: 100%; text-align: center; }
+    }
+
+    .order-list__filters {
+        gap: $spacing-xs;
+
+        button { font-size: 12px; padding: 6px 10px; }
+    }
+}

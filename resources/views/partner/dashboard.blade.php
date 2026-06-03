@@ -1,16 +1,33 @@
 <div class="partner-page">
 
-    <div class="partner-header">
-        <div>
-            <h1 style="font-size:24px; font-weight:700; margin-bottom:4px">
-                Кабинет партнёра
-            </h1>
-            <p style="color:#6b7280">{{ auth()->user()->name }}</p>
+    {{-- Приветствие --}}
+    <div class="partner-welcome">
+        <div class="partner-welcome__info">
+            <div class="partner-welcome__avatar">
+                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+            </div>
+            <div>
+                <div class="partner-welcome__name">{{ auth()->user()->name }}</div>
+                <div class="partner-welcome__role">Партнёр · Владелец площадок</div>
+            </div>
         </div>
         <a href="{{ route('partner.spots.create') }}" class="btn btn--primary">
             + Добавить площадку
         </a>
     </div>
+
+    {{-- Навигация --}}
+    <nav class="partner-nav">
+        <a href="{{ route('partner.dashboard') }}" class="partner-nav__item partner-nav__item--active">
+            Обзор
+        </a>
+        <a href="{{ route('partner.spots') }}" class="partner-nav__item">
+            Мои площадки
+        </a>
+        <a href="{{ route('partner.orders') }}" class="partner-nav__item">
+            Заказы
+        </a>
+    </nav>
 
     {{-- Статистика --}}
     <div class="client-dashboard__stats" style="margin-bottom:32px">
@@ -32,22 +49,13 @@
         </div>
     </div>
 
-    {{-- Быстрые ссылки --}}
-    <div style="display:flex; gap:12px; margin-bottom:32px">
-        <a href="{{ route('partner.spots') }}" class="btn btn--outline">
-            Мои площадки →
-        </a>
-        <a href="{{ route('partner.orders') }}" class="btn btn--outline">
-            Все заказы →
-        </a>
-    </div>
-
     {{-- Последние заказы --}}
     <h2 style="font-size:18px; font-weight:700; margin-bottom:16px">Последние заказы</h2>
 
     @if($recent_orders->isEmpty())
         <div class="spot-list__empty">
             <p>Заказов пока нет</p>
+            <p style="font-size:14px; margin-top:8px">Добавьте площадку и дождитесь первого клиента</p>
         </div>
     @else
         <div class="spot-list">
@@ -89,4 +97,5 @@
             @endforeach
         </div>
     @endif
+
 </div>
