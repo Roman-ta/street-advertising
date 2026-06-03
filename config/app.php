@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'mapmd_token' => env('MAPMD_TOKEN'),
 ];

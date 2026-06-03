@@ -236,3 +236,50 @@
     }
 
 }
+.map-section {
+    height: 500px;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    margin-bottom: $spacing-xl;
+    position: relative;
+}
+
+#main-map {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.map-popup {
+    min-width: 200px;
+
+    &__title {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    &__price {
+        color: $purple;
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    &__address {
+        font-size: 12px;
+        color: $gray-600;
+        margin-bottom: 8px;
+    }
+
+    &__btn {
+        display: block;
+        background: $purple;
+        color: white;
+        padding: 6px 12px;
+        border-radius: $radius-md;
+        font-size: 13px;
+        text-align: center;
+        text-decoration: none;
+    }
+}

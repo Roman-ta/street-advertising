@@ -28,6 +28,8 @@ class SpotForm extends Component
     public string $traffic     = 'medium';
     public bool   $lighting    = false;
     public array  $file_types_allowed = [];
+    public string $lat = '';
+    public string $lng = '';
 
     // Фото
     public array $photos = [];
@@ -45,6 +47,8 @@ class SpotForm extends Component
             'description'  => 'nullable|string|max:2000',
             'traffic'      => 'required|in:low,medium,high',
             'photos.*'     => 'nullable|image|max:5120', // 5MB каждое
+            'lat' => 'nullable|numeric',
+            'lng' => 'nullable|numeric',
         ];
     }
 
@@ -101,6 +105,8 @@ class SpotForm extends Component
             'lighting'     => $this->lighting,
             'file_types_allowed' => $this->file_types_allowed,
             'status'       => 'moderation', // всегда на модерацию
+            'lat' => $this->lat ?: null,
+            'lng' => $this->lng ?: null,
         ];
 
         if ($this->spotId) {

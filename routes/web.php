@@ -3,12 +3,8 @@
 use App\Livewire\Client\OrderShow;
 use App\Livewire\Partner\SpotForm;
 use App\Livewire\Partner\SpotList;
-use App\Livewire\Public\Cart;
-use App\Livewire\Public\SpotShow;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Livewire\Auth\Register;
-use App\Livewire\Auth\Login;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -104,6 +100,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('client.dashboard');
     Route::get('/client/orders', fn() => view('pages.client.orders'))
         ->name('client.orders');
+    Route::get('/client/orders/{id}', fn($id) => view('pages.order-show', compact('id')))
+        ->name('client.orders.show');
 
     Route::get('/partner/dashboard', function () {
         return view('partner.dashboard');

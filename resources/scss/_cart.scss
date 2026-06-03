@@ -235,3 +235,110 @@
         margin-top: $spacing-md;
     }
 }
+// Загрузка материалов
+.materials-upload {
+    background: $purple-pale;
+    border: 2px dashed $purple;
+    border-radius: $radius-lg;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-lg;
+
+    &__title {
+        font-size: $font-size-lg;
+        font-weight: 700;
+        margin-bottom: $spacing-sm;
+        color: $purple;
+    }
+
+    &__hint {
+        color: $gray-600;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-lg;
+        line-height: 1.6;
+    }
+
+    &__preview {
+        margin-bottom: $spacing-md;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+
+    &__file {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        background: $white;
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-md;
+        font-size: $font-size-sm;
+    }
+
+    &__file-icon { font-size: 20px; }
+
+    &__file-name {
+        flex: 1;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__file-size { color: $gray-400; flex-shrink: 0; }
+}
+
+// Список загруженных файлов
+.materials-list {
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+
+    &__title {
+        font-size: $font-size-md;
+        font-weight: 700;
+        margin-bottom: $spacing-md;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        padding: $spacing-md 0;
+        border-bottom: 1px solid $gray-200;
+
+        &:last-child { border-bottom: none; }
+    }
+
+    &__icon { font-size: 24px; flex-shrink: 0; }
+
+    &__info { flex: 1; }
+
+    &__name {
+        font-weight: 500;
+        font-size: $font-size-sm;
+        margin-bottom: 2px;
+    }
+
+    &__meta {
+        font-size: $font-size-xs;
+        color: $gray-400;
+    }
+}
+
+// Статусы заказа
+.order-show__status {
+    border-radius: $radius-lg;
+    padding: $spacing-md $spacing-lg;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+
+    &--pending         { background: $yellow-light; color: $yellow-dark; border: 1px solid #FDE68A; }
+    &--paid_pending    { background: $purple-pale;  color: $purple;      border: 1px solid #C4B5FD; }
+    &--materials_ready { background: $purple-pale;  color: $purple;      border: 1px solid #C4B5FD; }
+    &--active          { background: $green-light;  color: $green-dark;  border: 1px solid #6EE7B7; }
+    &--completed       { background: $gray-100;     color: $gray-800;    border: 1px solid $gray-200; }
+    &--cancelled       { background: $red-light;    color: $red-dark;    border: 1px solid #FCA5A5; }
+}

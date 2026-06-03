@@ -2,33 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Публичные
-Route::prefix('v1/public')->group(function () {
-    Route::get('/spots', [SpotController::class, 'index']);        // карта
-    Route::get('/spots/{spot}', [SpotController::class, 'show']); // страница
-    Route::get('/spots/{spot}/availability', [SpotController::class, 'availability']);
-});
+Route::get('/spots/map', function () {
+    $spots = \App\Models\Spot::where('status', 'active')
+        ->whereNotNull('lat')
+        ->whereNotNull('lng')
+        ->with('mainPhoto')
+        ->get(['id', 'title', 'type', 'address', 'price_month', 'lat', 'lng']);
 
-// Клиент
-Route::prefix('v1/client')->middleware(['livewire:sanctum', 'role:client', 'legal_signed'])->group(function () {
-    Route::get('/orders', [ClientOrderController::class, 'index']);
-    Route::post('/orders', [ClientOrderController::class, 'store']);
-    Route::post('/cart', [CartController::class, 'add']);
+    return response()->json($spots->map(fn($spot) => [
+        'id'      => $spot->id,
+        'title'   => $spot->title,
+        'type'    => $spot->type,
+        'address' => $spot->address,
+        'price'   => $spot->price_month,
+        'lat'     => $spot->lat,
+        'lng'     => $spot->lng,
+        'url'     => route('spots.show', $spot->id),
+        'photo'   => $spot->mainPhoto
+            ? asset('storage/' . $spot->mainPhoto->path)
+            : null,
+    ]));
 });
-
-// Партнёр
-Route::prefix('v1/partner')->middleware(['livewire:sanctum', 'role:partner', 'legal_signed', 'profile_complete'])->group(function () {
-    Route::apiResource('/spots', PartnerSpotController::class);
-    Route::post('/orders/{order}/photo-report', [PartnerOrderController::class, 'uploadPhotoReport']);
-});
-
-// Админ
-Route::prefix('v1/admin')->middleware(['livewire:sanctum', 'role:admin'])->group(function () {
-    Route::get('/users', [AdminUserController::class, 'index']);
-    Route::get('/orders', [AdminOrderController::class, 'index']);
-    Route::post('/spots/{spot}/moderate', [AdminSpotController::class, 'moderate']);
-});
-
-// Webhooks (без livewire — но с проверкой подписи)
-Route::post('/webhook/payment', [PaymentWebhookController::class, 'handle']);
-Route::post('/webhook/telegram', [TelegramWebhookController::class, 'handle']);
