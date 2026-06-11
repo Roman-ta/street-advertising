@@ -115,7 +115,7 @@
 .role-card {
     border: 2px solid $gray-200;
     border-radius: $radius-lg;
-    padding: $spacing-lg;
+    padding: $spacing-lg $spacing-md;
     background: $white;
     cursor: pointer;
     transition: all $transition;
@@ -124,21 +124,28 @@
     align-items: center;
     gap: $spacing-sm;
     text-align: center;
+    width: 100%;
 
     &:hover {
         border-color: $purple;
         background: $purple-pale;
+        transform: translateY(-2px);
+        box-shadow: $shadow-sm;
     }
 
     &--active {
         border-color: $purple;
         background: $purple-pale;
+        box-shadow: 0 0 0 3px rgba(91,33,182,0.15);
     }
 
-    &__icon { font-size: 32px; }
+    &__icon {
+        font-size: 36px;
+        line-height: 1;
+    }
 
     &__title {
-        font-weight: 600;
+        font-weight: 700;
         font-size: $font-size-md;
         color: $gray-800;
     }
@@ -146,6 +153,7 @@
     &__desc {
         font-size: $font-size-sm;
         color: $gray-600;
+        line-height: 1.4;
     }
 }
 

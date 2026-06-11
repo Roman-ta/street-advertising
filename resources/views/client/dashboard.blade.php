@@ -1,17 +1,30 @@
 <div class="client-dashboard">
 
     {{-- Приветствие --}}
-    <div class="client-dashboard__hero">
-        <div>
-            <h1 class="client-dashboard__title">
-                Добро пожаловать, {{ auth()->user()->name }}
-            </h1>
-            <p class="client-dashboard__subtitle">Управляйте своими рекламными размещениями</p>
+    <div class="partner-welcome">
+        <div class="partner-welcome__info">
+            <div class="partner-welcome__avatar">
+                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+            </div>
+            <div>
+                <div class="partner-welcome__name">{{ auth()->user()->name }}</div>
+                <div class="partner-welcome__role">Рекламодатель</div>
+            </div>
         </div>
         <a href="{{ route('home') }}" class="btn btn--primary">
             + Найти площадку
         </a>
     </div>
+
+    {{-- Навигация --}}
+    <nav class="partner-nav">
+        <a href="{{ route('client.dashboard') }}" class="partner-nav__item partner-nav__item--active">
+            Обзор
+        </a>
+        <a href="{{ route('client.orders') }}" class="partner-nav__item">
+            Мои заказы
+        </a>
+    </nav>
 
     {{-- Статистика --}}
     <div class="client-dashboard__stats">
@@ -44,8 +57,11 @@
 
         @if($recent_orders->isEmpty())
             <div class="client-dashboard__empty">
+                <p style="font-size:48px; margin-bottom:16px">📋</p>
                 <p>У вас пока нет заказов</p>
-                <a href="{{ route('home') }}" class="btn btn--primary">Найти площадку</a>
+                <a href="{{ route('home') }}" class="btn btn--primary" style="margin-top:16px">
+                    Найти площадку
+                </a>
             </div>
         @else
             <div class="order-cards">
@@ -55,13 +71,13 @@
                             <span class="order-card__number">Заказ #{{ $order->id }}</span>
                             <span class="order-status order-status--{{ $order->status }}">
                                 {{ match($order->status) {
-                                    'pending'        => 'Ожидает оплаты',
-                                    'paid_pending'   => 'Оплачен',
-                                    'materials_ready'=> 'Материалы загружены',
-                                    'active'         => 'Активен',
-                                    'completed'      => 'Завершён',
-                                    'cancelled'      => 'Отменён',
-                                    default          => $order->status,
+                                    'pending'         => 'Ожидает оплаты',
+                                    'paid_pending'    => 'Оплачен',
+                                    'materials_ready' => 'Материалы загружены',
+                                    'active'          => 'Активен',
+                                    'completed'       => 'Завершён',
+                                    'cancelled'       => 'Отменён',
+                                    default           => $order->status,
                                 } }}
                             </span>
                         </div>

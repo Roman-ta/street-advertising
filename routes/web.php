@@ -111,17 +111,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+
+    // Партнёр
+    Route::get('/partner/dashboard', fn() => view('pages.partner.dashboard'))->name('partner.dashboard');
     Route::get('/partner/spots', fn() => view('pages.partner.spots'))->name('partner.spots');
-    Route::get('/partner/spots/create', SpotForm::class)->name('partner.spots.create');
-    Route::get('/partner/spots/{spotId}/edit', SpotForm::class)->name('partner.spots.edit');
-    Route::get('/partner/spots/{spotId}/edit', fn() => view('pages.partner.spots-form'))->name('partner.spots-form');
-
-    Route::get('/partner/dashboard', fn() => view('pages.partner.dashboard'))
-        ->name('partner.dashboard');
-
-    Route::get('/partner/orders', fn() => view('pages.partner.orders'))
-        ->name('partner.orders');
-    Route::get('/partner/orders', fn() => view('pages.partner.orders'))
-        ->name('partner.orders');
-
+    Route::get('/partner/spots/create', fn() => view('pages.partner.spot-create'))->name('partner.spots.create');
+    Route::get('/partner/spots/{spotId}/edit', fn($spotId) => view('pages.partner.spot-edit', compact('spotId')))->name('partner.spots.edit');
+    Route::get('/partner/orders', fn() => view('pages.partner.orders'))->name('partner.orders');
+    Route::get('/partner/orders/{id}', fn($id) => view('pages.partner.order-show', compact('id')))->name('partner.orders.show');
 });

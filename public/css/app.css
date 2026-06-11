@@ -287,7 +287,7 @@ input, select, textarea {
 .role-card {
   border: 2px solid #E5E7EB;
   border-radius: 12px;
-  padding: 24px;
+  padding: 24px 16px;
   background: #FFFFFF;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -296,26 +296,32 @@ input, select, textarea {
   align-items: center;
   gap: 8px;
   text-align: center;
+  width: 100%;
 }
 .role-card:hover {
   border-color: #5B21B6;
   background: #EDE9FE;
+  transform: translateY(-2px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .role-card--active {
   border-color: #5B21B6;
   background: #EDE9FE;
+  box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.15);
 }
 .role-card__icon {
-  font-size: 32px;
+  font-size: 36px;
+  line-height: 1;
 }
 .role-card__title {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
   color: #374151;
 }
 .role-card__desc {
   font-size: 14px;
   color: #6B7280;
+  line-height: 1.4;
 }
 
 .field-row {
@@ -1713,26 +1719,78 @@ input, select, textarea {
 }
 
 .spot-form {
-  max-width: 700px;
+  max-width: 760px;
   margin: 0 auto;
   padding: 32px 24px;
 }
-.spot-form__title {
-  font-size: 24px;
+.spot-form__header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E5E7EB;
+}
+.spot-form__header h2 {
+  font-size: 28px;
   font-weight: 700;
+  margin-bottom: 4px;
+}
+.spot-form__header p {
+  color: #6B7280;
+  font-size: 14px;
+}
+.spot-form__section {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 24px;
   margin-bottom: 24px;
+}
+.spot-form__section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #5B21B6;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.spot-form__section-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: #5B21B6;
+  border-radius: 2px;
 }
 .spot-form__file-types {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 8px;
 }
 .spot-form__file-types label {
   display: flex;
   align-items: center;
   gap: 4px;
+  padding: 4px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 9999px;
   cursor: pointer;
   font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  background: #FFFFFF;
+}
+.spot-form__file-types label:has(input:checked) {
+  border-color: #5B21B6;
+  background: #EDE9FE;
+  color: #5B21B6;
+  font-weight: 500;
+}
+.spot-form__file-types label:hover {
+  border-color: #5B21B6;
+}
+.spot-form__file-types label input {
+  display: none;
 }
 .spot-form__photos-preview {
   display: flex;
@@ -1744,13 +1802,36 @@ input, select, textarea {
   width: 80px;
   height: 60px;
   object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  border: 2px solid #E5E7EB;
 }
 .spot-form__actions {
   display: flex;
   gap: 16px;
-  margin-top: 24px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #E5E7EB;
+}
+.spot-form__upload-area {
+  border: 2px dashed #E5E7EB;
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background: #F9FAFB;
+}
+.spot-form__upload-area:hover {
+  border-color: #5B21B6;
+  background: #EDE9FE;
+}
+.spot-form__upload-area p {
+  color: #6B7280;
+  font-size: 14px;
+  margin-top: 8px;
+}
+.spot-form__upload-area input {
+  display: none;
 }
 
 .partner-nav {
