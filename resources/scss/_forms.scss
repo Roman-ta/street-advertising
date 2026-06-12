@@ -1,0 +1,269 @@
+
+.form {
+    &__group {
+        margin-bottom: $spacing-lg;
+    }
+
+    &__label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-sm;
+    }
+
+    &__input,
+    &__select,
+    &__textarea {
+        width: 100%;
+        padding: 10px $spacing-md;
+        border: 1px solid $gray-200;
+        border-radius: $radius-md;
+        font-size: $font-size-md;
+        transition: border-color $transition;
+
+        &:focus {
+            outline: none;
+            border-color: $purple;
+            box-shadow: 0 0 0 3px rgba(91,33,182,0.1);
+        }
+
+        &--error { border-color: $red; }
+    }
+
+    &__textarea { resize: vertical; }
+
+    &__error {
+        color: $red;
+        font-size: $font-size-xs;
+        margin-top: $spacing-xs;
+    }
+
+    &__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $spacing-md;
+    }
+
+    &__checkbox {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        cursor: pointer;
+
+        input { width: 18px; height: 18px; }
+    }
+}
+// Auth страницы
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $gray-50;
+    padding: $spacing-lg;
+}
+
+.auth-box {
+    background: $white;
+    border-radius: $radius-lg;
+    padding: $spacing-xl;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: $shadow-md;
+
+    &__title {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__subtitle {
+        color: $gray-600;
+        margin-bottom: $spacing-lg;
+    }
+
+    &__footer {
+        text-align: center;
+        margin-top: $spacing-md;
+        font-size: $font-size-sm;
+        color: $gray-600;
+
+        a {
+            color: $purple;
+            font-weight: 600;
+
+            &:hover { text-decoration: underline; }
+        }
+    }
+
+    &__forgot {
+        color: $purple;
+        font-size: $font-size-sm;
+
+        &:hover { text-decoration: underline; }
+    }
+}
+
+// Карточки выбора роли
+.role-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+}
+
+.role-card {
+    border: 2px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: $spacing-lg $spacing-md;
+    background: $white;
+    cursor: pointer;
+    transition: all $transition;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-sm;
+    text-align: center;
+    width: 100%;
+
+    &:hover {
+        border-color: $purple;
+        background: $purple-pale;
+        transform: translateY(-2px);
+        box-shadow: $shadow-sm;
+    }
+
+    &--active {
+        border-color: $purple;
+        background: $purple-pale;
+        box-shadow: 0 0 0 3px rgba(91,33,182,0.15);
+    }
+
+    &__icon {
+        font-size: 36px;
+        line-height: 1;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: $font-size-md;
+        color: $gray-800;
+    }
+
+    &__desc {
+        font-size: $font-size-sm;
+        color: $gray-600;
+        line-height: 1.4;
+    }
+}
+
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-sm;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        cursor: pointer;
+        font-weight: 400;
+    }
+}
+.auth-page {
+    min-height: calc(100vh - 64px - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-xl 0;
+    background: linear-gradient(135deg, $purple-pale 0%, $white 60%);
+}
+
+.auth-box {
+    background: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-xl $spacing-xl;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: $shadow-lg;
+    border: 1px solid $gray-200;
+
+    &__logo {
+        text-align: center;
+        margin-bottom: $spacing-lg;
+
+        span {
+            font-size: 28px;
+            font-weight: 700;
+            color: $purple;
+        }
+    }
+
+    &__title {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        margin-bottom: $spacing-xs;
+        text-align: center;
+    }
+
+    &__subtitle {
+        color: $gray-600;
+        margin-bottom: $spacing-xl;
+        text-align: center;
+        font-size: $font-size-sm;
+    }
+
+    &__divider {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        margin: $spacing-lg 0;
+        color: $gray-400;
+        font-size: $font-size-sm;
+
+        &::before, &::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: $gray-200;
+        }
+    }
+
+    &__footer {
+        text-align: center;
+        margin-top: $spacing-lg;
+        font-size: $font-size-sm;
+        color: $gray-600;
+
+        a {
+            color: $purple;
+            font-weight: 600;
+            &:hover { text-decoration: underline; }
+        }
+    }
+
+    &__forgot {
+        color: $purple;
+        font-size: $font-size-sm;
+        &:hover { text-decoration: underline; }
+    }
+}
+
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-sm;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        cursor: pointer;
+        color: $gray-600;
+        font-weight: 400;
+    }
+}

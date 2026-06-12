@@ -1,0 +1,476 @@
+.cart {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: $spacing-xl $container-pad;
+
+    &__title {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        margin-bottom: $spacing-lg;
+    }
+
+    &__layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: $spacing-xl;
+        align-items: start;
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+    }
+
+    &__item {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        display: flex;
+        gap: $spacing-md;
+    }
+
+    &__item-photo {
+        width: 100px;
+        height: 70px;
+        background: $gray-100;
+        border-radius: $radius-md;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+    }
+
+    &__item-info { flex: 1; }
+
+    &__item-title {
+        font-weight: 600;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__item-address {
+        font-size: $font-size-sm;
+        color: $gray-600;
+        margin-bottom: $spacing-sm;
+    }
+
+    &__item-dates {
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+
+    &__item-right { text-align: right; flex-shrink: 0; }
+
+    &__item-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: $purple;
+        margin-bottom: $spacing-sm;
+    }
+
+    &__remove {
+        background: none;
+        border: none;
+        color: $red;
+        font-size: $font-size-sm;
+        cursor: pointer;
+
+        &:hover { text-decoration: underline; }
+    }
+
+    &__summary {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        position: sticky;
+        top: $spacing-lg;
+    }
+
+    &__summary-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: $spacing-md;
+    }
+
+    &__summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-sm;
+
+        span:first-child { color: $gray-600; }
+    }
+
+    &__summary-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 700;
+        padding-top: $spacing-md;
+        border-top: 1px solid $gray-200;
+        margin-bottom: $spacing-md;
+
+        span:last-child { color: $purple; }
+    }
+
+    &__continue {
+        display: block;
+        text-align: center;
+        margin-top: $spacing-md;
+        color: $gray-600;
+        font-size: $font-size-sm;
+
+        &:hover { color: $purple; }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: 80px 0;
+        color: $gray-400;
+
+        p:first-child {
+            font-size: 20px;
+            margin-bottom: $spacing-md;
+        }
+
+        a { color: $purple; }
+    }
+}
+// Страница заказа
+.order-show {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: $spacing-xl $container-pad;
+
+    &__hero {
+        text-align: center;
+        padding: $spacing-xl 0;
+        margin-bottom: $spacing-xl;
+
+        &-emoji { font-size: 48px; margin-bottom: $spacing-md; }
+
+        h2 {
+            font-size: $font-size-2xl;
+            font-weight: 700;
+            margin-bottom: $spacing-xs;
+        }
+
+        p { color: $gray-600; }
+    }
+
+    &__status {
+        background: $yellow-light;
+        border: 1px solid #FDE68A;
+        border-radius: $radius-lg;
+        padding: $spacing-md;
+        margin-bottom: $spacing-lg;
+        text-align: center;
+        color: $yellow-dark;
+        font-size: 15px;
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+        margin-bottom: $spacing-lg;
+    }
+
+    &__item {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        display: flex;
+        gap: $spacing-md;
+        align-items: center;
+    }
+
+    &__item-photo {
+        width: 100px;
+        height: 70px;
+        background: $gray-100;
+        border-radius: $radius-md;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+    }
+
+    &__item-info { flex: 1; }
+
+    &__item-title {
+        font-weight: 600;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__item-dates {
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+
+    &__item-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: $purple;
+        flex-shrink: 0;
+    }
+
+    &__total {
+        border: 1px solid $gray-200;
+        border-radius: $radius-lg;
+        padding: $spacing-lg;
+        margin-bottom: $spacing-lg;
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 700;
+
+        span:last-child { color: $purple; }
+    }
+
+    &__hint {
+        text-align: center;
+        color: $gray-400;
+        font-size: $font-size-xs;
+        margin-top: $spacing-md;
+    }
+}
+// Загрузка материалов
+.materials-upload {
+    background: $purple-pale;
+    border: 2px dashed $purple;
+    border-radius: $radius-lg;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-lg;
+
+    &__title {
+        font-size: $font-size-lg;
+        font-weight: 700;
+        margin-bottom: $spacing-sm;
+        color: $purple;
+    }
+
+    &__hint {
+        color: $gray-600;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-lg;
+        line-height: 1.6;
+    }
+
+    &__preview {
+        margin-bottom: $spacing-md;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+
+    &__file {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        background: $white;
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-md;
+        font-size: $font-size-sm;
+    }
+
+    &__file-icon { font-size: 20px; }
+
+    &__file-name {
+        flex: 1;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__file-size { color: $gray-400; flex-shrink: 0; }
+}
+
+// Список загруженных файлов
+.materials-list {
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+
+    &__title {
+        font-size: $font-size-md;
+        font-weight: 700;
+        margin-bottom: $spacing-md;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        padding: $spacing-md 0;
+        border-bottom: 1px solid $gray-200;
+
+        &:last-child { border-bottom: none; }
+    }
+
+    &__icon { font-size: 24px; flex-shrink: 0; }
+
+    &__info { flex: 1; }
+
+    &__name {
+        font-weight: 500;
+        font-size: $font-size-sm;
+        margin-bottom: 2px;
+    }
+
+    &__meta {
+        font-size: $font-size-xs;
+        color: $gray-400;
+    }
+}
+
+// Статусы заказа
+.order-show__status {
+    border-radius: $radius-lg;
+    padding: $spacing-md $spacing-lg;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+
+    &--pending         { background: $yellow-light; color: $yellow-dark; border: 1px solid #FDE68A; }
+    &--paid_pending    { background: $purple-pale;  color: $purple;      border: 1px solid #C4B5FD; }
+    &--materials_ready { background: $purple-pale;  color: $purple;      border: 1px solid #C4B5FD; }
+    &--active          { background: $green-light;  color: $green-dark;  border: 1px solid #6EE7B7; }
+    &--completed       { background: $gray-100;     color: $gray-800;    border: 1px solid $gray-200; }
+    &--cancelled       { background: $red-light;    color: $red-dark;    border: 1px solid #FCA5A5; }
+}
+// Адаптивность
+@media (max-width: 768px) {
+    .cart {
+        padding: $spacing-md;
+
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+
+        &__item {
+            flex-wrap: wrap;
+        }
+
+        &__item-right {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: $spacing-sm;
+        }
+
+        &__summary {
+            position: static;
+        }
+    }
+
+    .order-show {
+        padding: $spacing-md;
+
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .spot-show {
+        padding: $spacing-md;
+
+        &__layout {
+            grid-template-columns: 1fr;
+        }
+
+        &__booking {
+            position: static;
+            margin-top: $spacing-lg;
+        }
+    }
+
+    .client-dashboard {
+        padding: $spacing-md;
+
+        &__hero {
+            flex-direction: column;
+            gap: $spacing-md;
+            align-items: flex-start;
+        }
+
+        &__stats {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .partner-page {
+        padding: $spacing-md;
+    }
+
+    .partner-header {
+        flex-direction: column;
+        gap: $spacing-md;
+        align-items: flex-start;
+    }
+
+    .spot-row {
+        flex-wrap: wrap;
+
+        &__actions {
+            width: 100%;
+            justify-content: flex-end;
+            margin-top: $spacing-sm;
+        }
+    }
+
+    .hero {
+        padding: 48px $spacing-md;
+
+        &__title { font-size: 36px; }
+
+        &__stats {
+            gap: $spacing-lg;
+        }
+
+        &__stat strong { font-size: 22px; }
+    }
+
+    .catalog__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filters__row {
+        grid-template-columns: 1fr;
+    }
+
+    .header__nav {
+        gap: $spacing-sm;
+    }
+
+    .auth-box {
+        padding: $spacing-lg;
+    }
+
+    .map-section {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .client-dashboard__stats {
+        grid-template-columns: 1fr;
+    }
+
+    .hero__actions {
+        flex-direction: column;
+        align-items: center;
+
+        a { width: 100%; text-align: center; }
+    }
+
+    .order-list__filters {
+        gap: $spacing-xs;
+
+        button { font-size: 12px; padding: 6px 10px; }
+    }
+}

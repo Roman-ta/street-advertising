@@ -1,0 +1,130 @@
+.hero {
+    background: linear-gradient(135deg, #4C1D95 0%, #5B21B6 50%, #7C3AED 100%);
+    color: $white;
+    padding: 80px $container-pad;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    // Декоративные круги
+    &::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 50%;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -150px;
+        left: -50px;
+        width: 300px;
+        height: 300px;
+        background: rgba(255,255,255,0.03);
+        border-radius: 50%;
+    }
+
+    &__inner {
+        max-width: 720px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__label {
+        display: inline-block;
+        background: rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.9);
+        padding: 6px 16px;
+        border-radius: $radius-full;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-lg;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    &__title {
+        font-size: 52px;
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: $spacing-md;
+        letter-spacing: -0.5px;
+    }
+
+    &__subtitle {
+        font-size: $font-size-lg;
+        opacity: 0.8;
+        margin-bottom: $spacing-xl;
+        line-height: 1.6;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &__actions {
+        display: flex;
+        gap: $spacing-md;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    &__btn-primary {
+        background: $white;
+        color: $purple;
+        padding: 14px 28px;
+        border-radius: $radius-md;
+        font-size: $font-size-md;
+        font-weight: 700;
+        transition: all $transition;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+    }
+
+    &__btn-outline {
+        border: 2px solid rgba(255,255,255,0.6);
+        color: $white;
+        padding: 14px 28px;
+        border-radius: $radius-md;
+        font-size: $font-size-md;
+        font-weight: 600;
+        transition: all $transition;
+        backdrop-filter: blur(4px);
+
+        &:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: $white;
+        }
+    }
+
+    &__stats {
+        display: flex;
+        justify-content: center;
+        gap: $spacing-xl;
+        margin-top: $spacing-xl;
+        padding-top: $spacing-xl;
+        border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    &__stat {
+        text-align: center;
+
+        strong {
+            display: block;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        span {
+            font-size: $font-size-sm;
+            opacity: 0.7;
+        }
+    }
+}

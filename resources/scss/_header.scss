@@ -1,0 +1,92 @@
+.header {
+    border-bottom: 1px solid $gray-200;
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    transition: box-shadow $transition;
+
+    &--scrolled {
+        box-shadow: $shadow-sm;
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+    }
+
+    &__logo {
+        font-size: 22px;
+        font-weight: 800;
+        color: $purple;
+        text-decoration: none;
+        letter-spacing: -0.5px;
+        transition: opacity $transition;
+
+        &:hover { opacity: 0.8; }
+    }
+
+    &__nav {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+    }
+
+    &__link {
+        color: $gray-600;
+        font-size: $font-size-sm;
+        font-weight: 500;
+        transition: color $transition;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $radius-md;
+
+        &:hover {
+            color: $purple;
+            background: $purple-pale;
+        }
+    }
+
+    &__cart {
+        position: relative;
+        padding: $spacing-xs;
+
+        &-icon {
+            font-size: 20px;
+            color: $gray-600;
+            transition: color $transition;
+
+            &:hover { color: $purple; }
+        }
+
+        &-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: $purple;
+            color: $white;
+            width: 18px;
+            height: 18px;
+            border-radius: $radius-full;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid $white;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        &__inner { height: 56px; }
+        &__logo { font-size: 18px; }
+
+        &__link:not(.header__cart) {
+            display: none;
+        }
+    }
+}

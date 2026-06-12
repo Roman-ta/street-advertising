@@ -1,0 +1,229 @@
+.client-dashboard {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: $spacing-xl $container-pad;
+
+    &__hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-xl;
+    }
+
+    &__title {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__subtitle { color: $gray-600; }
+
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $spacing-md;
+        margin-bottom: $spacing-xl;
+    }
+
+    &__section { margin-bottom: $spacing-xl; }
+
+    &__section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-md;
+
+        h2 { font-size: $font-size-lg; font-weight: 700; }
+    }
+
+    &__see-all {
+        color: $purple;
+        font-size: $font-size-sm;
+        &:hover { text-decoration: underline; }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: $spacing-xl;
+        color: $gray-400;
+
+        p { margin-bottom: $spacing-md; }
+    }
+}
+
+// Карточки статистики
+.stat-card {
+    background: $white;
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    text-align: center;
+
+    &__value {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        color: $gray-900;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__label {
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+
+    &--active  { border-color: $green;  .stat-card__value { color: $green; } }
+    &--pending { border-color: #F59E0B; .stat-card__value { color: #F59E0B; } }
+    &--money   { border-color: $purple; .stat-card__value { color: $purple; } }
+}
+
+// Карточки заказов
+.order-cards {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+}
+
+.order-card {
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    display: block;
+    transition: box-shadow $transition;
+    color: inherit;
+
+    &:hover { box-shadow: $shadow-md; }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-md;
+    }
+
+    &__number {
+        font-weight: 600;
+        font-size: $font-size-md;
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+        margin-bottom: $spacing-md;
+    }
+
+    &__item {
+        display: flex;
+        gap: $spacing-md;
+        align-items: center;
+    }
+
+    &__item-photo {
+        width: 60px;
+        height: 45px;
+        background: $gray-100;
+        border-radius: $radius-sm;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+    }
+
+    &__item-title {
+        font-size: $font-size-sm;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+
+    &__item-dates {
+        font-size: $font-size-xs;
+        color: $gray-600;
+    }
+
+    &__more {
+        font-size: $font-size-xs;
+        color: $gray-400;
+        margin: 0;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: $spacing-md;
+        border-top: 1px solid $gray-200;
+    }
+
+    &__date { font-size: $font-size-sm; color: $gray-400; }
+
+    &__total {
+        font-size: $font-size-lg;
+        font-weight: 700;
+        color: $purple;
+    }
+}
+
+// Статусы заказов
+.order-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: 500;
+
+    &--pending         { background: $yellow-light; color: $yellow-dark; }
+    &--paid_pending    { background: $purple-pale;  color: $purple; }
+    &--materials_ready { background: $purple-pale;  color: $purple; }
+    &--active          { background: $green-light;  color: $green-dark; }
+    &--completed       { background: $gray-100;     color: $gray-800; }
+    &--cancelled       { background: $red-light;    color: $red-dark; }
+}
+
+// Список заказов
+.order-list {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: $spacing-xl $container-pad;
+
+    &__header {
+        margin-bottom: $spacing-lg;
+
+        h2 {
+            font-size: $font-size-xl;
+            font-weight: 700;
+            margin-bottom: $spacing-md;
+        }
+    }
+
+    &__filters {
+        display: flex;
+        gap: $spacing-sm;
+        flex-wrap: wrap;
+    }
+
+    &__filter {
+        padding: $spacing-xs $spacing-md;
+        border-radius: $radius-full;
+        border: 1px solid $gray-200;
+        background: $white;
+        font-size: $font-size-sm;
+        cursor: pointer;
+        transition: all $transition;
+
+        &:hover { border-color: $purple; color: $purple; }
+
+        &--active {
+            background: $purple;
+            color: $white;
+            border-color: $purple;
+        }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: $spacing-xl;
+        color: $gray-400;
+
+        p { margin-bottom: $spacing-md; }
+    }
+}
