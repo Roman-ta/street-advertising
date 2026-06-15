@@ -25,40 +25,41 @@ class SpotResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
-            Forms\Components\Section::make('Основная информация')->schema([
-                Forms\Components\TextInput::make('title')
-                    ->label('Название')
-                    ->required(),
-                Forms\Components\Select::make('type')
-                    ->label('Тип')
-                    ->options([
-                        'billboard'  => 'Билборд',
-                        'lightbox'   => 'Лайтбокс',
-                        'led_screen' => 'LED экран',
-                        'banner'     => 'Баннер',
-                        'transport'  => 'Транспорт',
-                        'indoor'     => 'Внутри помещений',
-                        'digital'    => 'Digital',
-                        'event'      => 'Event',
-                    ])
-                    ->required(),
-                Forms\Components\Select::make('status')
-                    ->label('Статус')
-                    ->options([
-                        'draft'      => 'Черновик',
-                        'moderation' => 'На модерации',
-                        'active'     => 'Активна',
-                        'blocked'    => 'Заблокирована',
-                    ])
-                    ->required(),
-                Forms\Components\TextInput::make('address')
-                    ->label('Адрес')
-                    ->required(),
-                Forms\Components\TextInput::make('price_month')
-                    ->label('Цена/месяц ($)')
-                    ->numeric()
-                    ->required(),
-            ])->columns(2),
+            Forms\Components\TextInput::make('title')
+                ->label('Название')
+                ->required(),
+            Forms\Components\Select::make('type')
+                ->label('Тип')
+                ->options([
+                    'billboard'  => 'Билборд',
+                    'lightbox'   => 'Лайтбокс',
+                    'led_screen' => 'LED экран',
+                    'banner'     => 'Баннер',
+                    'transport'  => 'Транспорт',
+                    'indoor'     => 'Внутри помещений',
+                    'digital'    => 'Digital',
+                    'event'      => 'Event',
+                ])
+                ->required(),
+            Forms\Components\Select::make('status')
+                ->label('Статус')
+                ->options([
+                    'draft'      => 'Черновик',
+                    'moderation' => 'На модерации',
+                    'active'     => 'Активна',
+                    'blocked'    => 'Заблокирована',
+                ])
+                ->required(),
+            Forms\Components\TextInput::make('address')
+                ->label('Адрес')
+                ->required(),
+            Forms\Components\TextInput::make('price_month')
+                ->label('Цена/месяц ($)')
+                ->numeric()
+                ->required(),
+            Forms\Components\Textarea::make('moderation_comment')
+                ->label('Комментарий модератора')
+                ->rows(3),
         ]);
     }
 
