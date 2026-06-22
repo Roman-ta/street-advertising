@@ -84,7 +84,9 @@
             {{-- Карта --}}
             <div class="form__group">
                 <label class="form__label">Укажите на карте</label>
-                <div id="spot-map" style="height:280px; border-radius:8px; border:1px solid #e5e7eb; overflow:hidden"></div>
+                <div wire:ignore>
+                    <div id="spot-map" style="height:280px; border-radius:8px; border:1px solid #e5e7eb; overflow:hidden"></div>
+                </div>
                 <p style="font-size:12px; color:#9ca3af; margin-top:6px">
                     Кликните на карту чтобы указать точное расположение
                 </p>
@@ -179,35 +181,36 @@
         <div class="spot-form__section">
             <div class="spot-form__section-title">Фотографии площадки</div>
 
-            <label class="spot-form__upload-area" onclick="document.getElementById('photos-input').click()">
-                <input
-                    id="photos-input"
-                    type="file"
-                    wire:model="photos"
-                    multiple
-                    accept="image/*"
-                    style="display:none"
-                >
-                <div style="font-size:40px; margin-bottom:8px">📷</div>
-                <strong style="font-size:15px; color:#374151">Нажмите чтобы выбрать фото</strong>
-                <p>До 10 фотографий · максимум 5MB каждое · JPG, PNG, WebP</p>
-            </label>
+            <div class="spot-form__upload-area" onclick="document.getElementById('photos-input').click()" style="cursor:pointer;">
+                <div style="font-size:40px; margin-bottom:8px;">📷</div>
+                <strong style="font-size:15px; color:#374151; display:block; margin-bottom:6px;">Нажмите чтобы выбрать фото</strong>
+                <p style="margin:0; color:#9ca3af; font-size:13px;">До 10 фотографий · максимум 5MB каждое · JPG, PNG, WebP</p>
+            </div>
 
-            <div wire:loading wire:target="photos" style="text-align:center; padding:12px; color:#5B21B6; font-size:14px">
+            <input
+                id="photos-input"
+                type="file"
+                wire:model="photos"
+                multiple
+                accept="image/*"
+                style="display:none"
+            >
+
+            <div wire:loading wire:target="photos" style="text-align:center; padding:12px; color:#5B21B6; font-size:14px;">
                 ⏳ Загружаем фото...
             </div>
 
-            @error('photos.*') <span class="form__error">{{ $message }}</span> @enderror
+            @error('photos.*')
+            <span class="form__error">{{ $message }}</span>
+            @enderror
 
             @if(!empty($photos))
-                <div class="spot-form__photos-preview">
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
                     @foreach($photos as $index => $photo)
-                        <div style="position:relative; display:inline-block">
-                            <img src="{{ $photo->temporaryUrl() }}" alt="preview">
+                        <div style="position:relative; width:100px; height:75px;">
+                            <img src="{{ $photo->temporaryUrl() }}" alt="preview" style="width:100%; height:100%; object-fit:cover; border-radius:6px; display:block;">
                             @if($index === 0)
-                                <span style="position:absolute; bottom:4px; left:4px; background:rgba(91,33,182,0.9); color:white; font-size:10px; padding:2px 6px; border-radius:4px;">
-                                    Главное
-                                </span>
+                                <span style="position:absolute; bottom:4px; left:4px; background:rgba(91,33,182,0.9); color:white; font-size:10px; padding:2px 6px; border-radius:4px;">Главное</span>
                             @endif
                         </div>
                     @endforeach
@@ -237,6 +240,9 @@
                 attribution: '© OpenStreetMap'
             }).addTo(map);
 
+            // Фикс: пересчитать размер карты после рендера
+            setTimeout(() => map.invalidateSize(), 100);
+
             let marker = null;
 
             const lat = document.getElementById('spot-lat').value;
@@ -261,6 +267,9 @@
                         if (street) @this.set('address', street.name);
                     })
                     .catch(() => {});
+
+                // Снова пересчитать размер на всякий случай
+                setTimeout(() => map.invalidateSize(), 50);
             });
         });
     </script>

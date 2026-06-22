@@ -216,3 +216,10 @@
         }
     }
 }
+@media (max-width: 769px) {
+    .spot-show{
+        &__layout{
+            grid-template-columns: 1fr !important;
+        }
+    }
+}

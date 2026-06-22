@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Translatable\HasTranslations;
 
 class Spot extends Model
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasTranslations;
+    public array $translatable = ['title', 'description'];
     protected $fillable = [
         'partner_id', 'title', 'type', 'address', 'lat', 'lng',
         'city', 'district', 'size_w', 'size_h', 'price_month',
