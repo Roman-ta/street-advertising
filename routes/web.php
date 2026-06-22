@@ -91,3 +91,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Админ → редирект на Filament
     Route::get('/admin/dashboard', fn() => redirect('/admin'))->name('admin.dashboard');
 });
+
+
+Route::get('/lang/{locale}', function (string $locale) {
+    if (in_array($locale, ['ru', 'ro', 'en'])) {
+        session(['locale' => $locale]);
+
+        if (auth()->check()) {
+            auth()->user()->update(['lang' => $locale]);
+        }
+    }
+    return back();
+})->name('lang.switch');

@@ -20,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'legal_signed'     => CheckLegalSigned::class,
             'profile_complete' => CheckProfileComplete::class,
         ]);
+        $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
 
         // Куда редиректить гостей (незалогиненных)
         $middleware->redirectGuestsTo('/login');

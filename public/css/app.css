@@ -558,6 +558,70 @@ input, select, textarea {
   border: 2px solid #FFFFFF;
 }
 
+.lang-switcher {
+  position: relative;
+}
+.lang-switcher__trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.2s ease-in-out;
+}
+.lang-switcher__trigger:hover {
+  background: #EDE9FE;
+  border-color: #5B21B6;
+}
+.lang-switcher__flag {
+  font-size: 14px;
+}
+.lang-switcher__arrow {
+  font-size: 10px;
+  color: #9CA3AF;
+  transition: transform 0.2s ease-in-out;
+}
+.lang-switcher--open .lang-switcher__arrow {
+  transform: rotate(180deg);
+}
+.lang-switcher__dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  min-width: 140px;
+  overflow: hidden;
+  z-index: 200;
+}
+.lang-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  text-decoration: none;
+}
+.lang-switcher__option:hover {
+  background: #EDE9FE;
+}
+.lang-switcher__option--active {
+  background: #EDE9FE;
+  color: #5B21B6;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .header__inner {
     height: 56px;
@@ -1606,6 +1670,11 @@ input, select, textarea {
   font-weight: 500;
 }
 
+@media (max-width: 769px) {
+  .spot-show__layout {
+    grid-template-columns: 1fr !important;
+  }
+}
 .partner-page {
   max-width: 1000px;
   margin: 0 auto;
