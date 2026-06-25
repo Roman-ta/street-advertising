@@ -103,6 +103,17 @@ class SpotResource extends Resource
                     ->label('Создана')
                     ->dateTime('d.m.Y')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('total_commission')
+                    ->label('Заработок платформы')
+                    ->getStateUsing(fn (Spot $record) => $record->total_commission)
+                    ->money('USD')
+                    ->color('success'),
+
+                Tables\Columns\TextColumn::make('pending_payout')
+                    ->label('Должны партнёру')
+                    ->getStateUsing(fn (Spot $record) => $record->pending_payout)
+                    ->money('USD')
+                    ->color('warning'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')

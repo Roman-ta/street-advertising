@@ -3,7 +3,7 @@
 @section('content')
         <div class="auth-page">
             <div class="auth-box">
-                <h2 class="auth-box__title">Войти в аккаунт</h2>
+                <h2 class="auth-box__title">{{ __('messages.auth.login_title') }}</h2>
                 <livewire:auth.login />
             </div>
         </div>

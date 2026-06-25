@@ -292,3 +292,195 @@
         &:hover { background: $purple-light; }
     }
 }
+
+.catalog-top {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: $spacing-lg;
+    margin-bottom: $spacing-lg;
+
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.catalog-top__filters {
+    @media (max-width: 968px) {
+        order: 1;
+    }
+}
+
+.catalog-top__map {
+    height: 480px;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    border: 1px solid $gray-200;
+
+    @media (max-width: 968px) {
+        height: 350px;
+        order: 2;
+    }
+}
+
+#catalog-map { height: 100%; width: 100%; }
+
+.catalog__grid-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-lg;
+}
+
+// ─── Карточка площадки (компактная) ─────────────────────────
+.spot-card-compact {
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    background: $white;
+    cursor: pointer;
+    transition: all $transition;
+
+    &:hover {
+        border-color: $purple;
+        box-shadow: $shadow-md;
+        transform: translateY(-2px);
+    }
+
+    &--active {
+        border-color: $purple;
+        box-shadow: 0 0 0 3px rgba(91,33,182,0.15);
+    }
+
+    &__image {
+        height: 160px;
+        background: $gray-100;
+        position: relative;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+    }
+
+    &:hover &__image img {
+        transform: scale(1.05);
+    }
+
+    &__badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(91,33,182,0.92);
+        color: white;
+        padding: 4px 10px;
+        border-radius: $radius-full;
+        font-size: 11px;
+        font-weight: 600;
+        backdrop-filter: blur(4px);
+    }
+
+    &__body {
+        padding: 14px;
+    }
+
+    &__title {
+        font-size: 15px;
+        font-weight: 700;
+        color: $gray-800;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__address {
+        font-size: 12px;
+        color: $gray-600;
+        margin-bottom: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__price {
+        font-size: 18px;
+        font-weight: 800;
+        color: $purple;
+        white-space: nowrap;
+    }
+
+    // Контейнер для кнопок
+    &__footer > div {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    &__map-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border: none;
+        padding: 7px 12px;
+        border-radius: $radius-md;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $transition;
+        text-decoration: none;
+        white-space: nowrap;
+
+        // Вариант "На карте" — outline-стиль
+        background: $purple-pale;
+        color: $purple;
+
+        &:hover {
+            background: $purple;
+            color: $white;
+            transform: translateY(-1px);
+        }
+    }
+
+    // Вариант "Подробнее" — заполненная кнопка (переопределяем инлайн-стиль через !important на случай конфликта)
+    a.spot-card-compact__map-btn {
+        background: $purple !important;
+        color: $white !important;
+
+        &:hover {
+            background: $purple-light !important;
+        }
+    }
+}
+.filters__select {
+    padding: 10px $spacing-md;
+    padding-right: 36px; // добавьте отступ справа для стрелочки
+    border: 1px solid $gray-200;
+    border-radius: $radius-md;
+    background: $white;
+    width: 100%;
+    transition: border-color $transition;
+
+    // Убираем системную стрелочку и ставим свою
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+
+    &:focus {
+        outline: none;
+        border-color: $purple;
+        // Стрелочка становится фиолетовой при фокусе
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235B21B6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+}

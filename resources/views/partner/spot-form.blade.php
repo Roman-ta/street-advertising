@@ -1,8 +1,8 @@
 <div class="spot-form">
 
     <div class="spot-form__header">
-        <h2>{{ $spotId ? 'Редактировать площадку' : 'Добавить площадку' }}</h2>
-        <p>{{ $spotId ? 'Внесите изменения и сохраните' : 'Заполните информацию о вашей рекламной площадке' }}</p>
+        <h2>{{ $spotId ? __('messages.spot_form.edit_title') : __('messages.spot_form.add_title') }}</h2>
+        <p>{{ $spotId ? __('messages.spot_form.edit_subtitle') : __('messages.spot_form.add_subtitle') }}</p>
     </div>
 
     @if(session('success'))
@@ -13,29 +13,29 @@
 
         {{-- Основная информация --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">Основная информация</div>
+            <div class="spot-form__section-title">{{ __('messages.spot_form.section_main') }}</div>
 
             <div class="form__group">
-                <label class="form__label">Тип рекламы *</label>
+                <label class="form__label">{{ __('messages.spot_form.type_label') }}</label>
                 <select wire:model="type" class="form__select">
-                    <option value="billboard">📋 Билборд</option>
-                    <option value="lightbox">💡 Лайтбокс</option>
-                    <option value="led_screen">📺 LED экран</option>
-                    <option value="banner">🏷 Баннер на фасаде</option>
-                    <option value="transport">🚌 Реклама в транспорте</option>
-                    <option value="indoor">🏢 Внутри помещений</option>
-                    <option value="digital">📱 Digital/Media</option>
-                    <option value="event">🎪 Event</option>
+                    <option value="billboard">📋 {{ __('messages.spot_form.type_billboard') }}</option>
+                    <option value="lightbox">💡 {{ __('messages.spot_form.type_lightbox') }}</option>
+                    <option value="led_screen">📺 {{ __('messages.spot_form.type_led') }}</option>
+                    <option value="banner">🏷 {{ __('messages.spot_form.type_banner') }}</option>
+                    <option value="transport">🚌 {{ __('messages.spot_form.type_transport') }}</option>
+                    <option value="indoor">🏢 {{ __('messages.spot_form.type_indoor') }}</option>
+                    <option value="digital">📱 {{ __('messages.spot_form.type_digital') }}</option>
+                    <option value="event">🎪 {{ __('messages.spot_form.type_event') }}</option>
                 </select>
                 @error('type') <span class="form__error">{{ $message }}</span> @enderror
             </div>
 
             <div class="form__group">
-                <label class="form__label">Название площадки *</label>
+                <label class="form__label">{{ __('messages.spot_form.title_label') }}</label>
                 <input
                     type="text"
                     wire:model="title"
-                    placeholder="Например: Билборд 6×3м, центр Кишинёва"
+                    placeholder="{{ __('messages.spot_form.title_placeholder') }}"
                     class="form__input"
                 >
                 @error('title') <span class="form__error">{{ $message }}</span> @enderror
@@ -44,10 +44,10 @@
 
         {{-- Расположение --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">Расположение</div>
+            <div class="spot-form__section-title">{{ __('messages.spot_form.section_location') }}</div>
 
             <div class="form__group">
-                <label class="form__label">Адрес *</label>
+                <label class="form__label">{{ __('messages.spot_form.address_label') }}</label>
                 <input
                     type="text"
                     wire:model="address"
@@ -59,23 +59,23 @@
 
             <div class="form__row">
                 <div class="form__group">
-                    <label class="form__label">Город *</label>
+                    <label class="form__label">{{ __('messages.spot_form.city_label') }}</label>
                     <select wire:model="city" class="form__select">
-                        <option value="Chisinau">Кишинёв</option>
-                        <option value="Balti">Бельцы</option>
-                        <option value="Cahul">Кагул</option>
-                        <option value="Ungheni">Унгены</option>
-                        <option value="Soroca">Сорока</option>
-                        <option value="Orhei">Орхей</option>
-                        <option value="Other">Другой</option>
+                        <option value="Chisinau">{{ __('messages.spot_form.city_chisinau') }}</option>
+                        <option value="Balti">{{ __('messages.spot_form.city_balti') }}</option>
+                        <option value="Cahul">{{ __('messages.spot_form.city_cahul') }}</option>
+                        <option value="Ungheni">{{ __('messages.spot_form.city_ungheni') }}</option>
+                        <option value="Soroca">{{ __('messages.spot_form.city_soroca') }}</option>
+                        <option value="Orhei">{{ __('messages.spot_form.city_orhei') }}</option>
+                        <option value="Other">{{ __('messages.spot_form.city_other') }}</option>
                     </select>
                 </div>
                 <div class="form__group">
-                    <label class="form__label">Район</label>
+                    <label class="form__label">{{ __('messages.spot_form.district_label') }}</label>
                     <input
                         type="text"
                         wire:model="district"
-                        placeholder="Центр, Ботаника..."
+                        placeholder="{{ __('messages.spot_form.district_ph') }}"
                         class="form__input"
                     >
                 </div>
@@ -83,12 +83,12 @@
 
             {{-- Карта --}}
             <div class="form__group">
-                <label class="form__label">Укажите на карте</label>
+                <label class="form__label">{{ __('messages.spot_form.map_label') }}</label>
                 <div wire:ignore>
                     <div id="spot-map" style="height:280px; border-radius:8px; border:1px solid #e5e7eb; overflow:hidden"></div>
                 </div>
                 <p style="font-size:12px; color:#9ca3af; margin-top:6px">
-                    Кликните на карту чтобы указать точное расположение
+                    {{ __('messages.spot_form.map_hint') }}
                 </p>
                 <input type="hidden" wire:model="lat" id="spot-lat">
                 <input type="hidden" wire:model="lng" id="spot-lng">
@@ -97,33 +97,33 @@
 
         {{-- Характеристики --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">Характеристики</div>
+            <div class="spot-form__section-title">{{ __('messages.spot_form.section_specs') }}</div>
 
             <div class="form__row">
                 <div class="form__group">
-                    <label class="form__label">Ширина (м)</label>
+                    <label class="form__label">{{ __('messages.spot_form.width_label') }}</label>
                     <input type="number" wire:model="size_w" placeholder="6" step="0.1" class="form__input">
                 </div>
                 <div class="form__group">
-                    <label class="form__label">Высота (м)</label>
+                    <label class="form__label">{{ __('messages.spot_form.height_label') }}</label>
                     <input type="number" wire:model="size_h" placeholder="3" step="0.1" class="form__input">
                 </div>
             </div>
 
             <div class="form__row">
                 <div class="form__group">
-                    <label class="form__label">Трафик</label>
+                    <label class="form__label">{{ __('messages.spot_form.traffic_label') }}</label>
                     <select wire:model="traffic" class="form__select">
-                        <option value="low">🟢 Низкий</option>
-                        <option value="medium">🟡 Средний</option>
-                        <option value="high">🔴 Высокий</option>
+                        <option value="low">🟢 {{ __('messages.spot_form.traffic_low') }}</option>
+                        <option value="medium">🟡 {{ __('messages.spot_form.traffic_medium') }}</option>
+                        <option value="high">🔴 {{ __('messages.spot_form.traffic_high') }}</option>
                     </select>
                 </div>
                 <div class="form__group">
-                    <label class="form__label">Подсветка</label>
+                    <label class="form__label">{{ __('messages.spot_form.lighting_label') }}</label>
                     <label class="form__checkbox" style="margin-top:12px; font-size:15px">
                         <input type="checkbox" wire:model="lighting">
-                        <span>Есть подсветка ☀️</span>
+                        <span>{{ __('messages.spot_form.lighting_check') }} ☀️</span>
                     </label>
                 </div>
             </div>
@@ -131,10 +131,10 @@
 
         {{-- Цена --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">Стоимость</div>
+            <div class="spot-form__section-title">{{ __('messages.spot_form.section_price') }}</div>
 
             <div class="form__group">
-                <label class="form__label">Цена в месяц ($) *</label>
+                <label class="form__label">{{ __('messages.spot_form.price_label') }}</label>
                 <div style="position:relative">
                     <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#9ca3af; font-weight:600">$</span>
                     <input
@@ -151,13 +151,13 @@
 
         {{-- Описание --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">Описание</div>
+            <div class="spot-form__section-title">{{ __('messages.spot_form.section_desc') }}</div>
 
             <div class="form__group">
                 <textarea
                     wire:model="description"
                     rows="4"
-                    placeholder="Опишите особенности площадки..."
+                    placeholder="{{ __('messages.spot_form.desc_placeholder') }}"
                     class="form__textarea"
                 ></textarea>
             </div>
@@ -165,7 +165,7 @@
 
         {{-- Форматы файлов --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">Принимаемые форматы материалов</div>
+            <div class="spot-form__section-title">{{ __('messages.spot_form.section_formats') }}</div>
 
             <div class="spot-form__file-types">
                 @foreach(['pdf' => 'PDF', 'png' => 'PNG', 'jpg' => 'JPG', 'tiff' => 'TIFF', 'mp4' => 'MP4', 'ai' => 'AI'] as $value => $label)
@@ -179,12 +179,12 @@
 
         {{-- Фото --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">Фотографии площадки</div>
+            <div class="spot-form__section-title">{{ __('messages.spot_form.section_photos') }}</div>
 
             <div class="spot-form__upload-area" onclick="document.getElementById('photos-input').click()" style="cursor:pointer;">
                 <div style="font-size:40px; margin-bottom:8px;">📷</div>
-                <strong style="font-size:15px; color:#374151; display:block; margin-bottom:6px;">Нажмите чтобы выбрать фото</strong>
-                <p style="margin:0; color:#9ca3af; font-size:13px;">До 10 фотографий · максимум 5MB каждое · JPG, PNG, WebP</p>
+                <strong style="font-size:15px; color:#374151; display:block; margin-bottom:6px;">{{ __('messages.spot_form.photo_click') }}</strong>
+                <p style="margin:0; color:#9ca3af; font-size:13px;">{{ __('messages.spot_form.photo_hint') }}</p>
             </div>
 
             <input
@@ -197,7 +197,7 @@
             >
 
             <div wire:loading wire:target="photos" style="text-align:center; padding:12px; color:#5B21B6; font-size:14px;">
-                ⏳ Загружаем фото...
+                ⏳ {{ __('messages.spot_form.photo_loading') }}
             </div>
 
             @error('photos.*')
@@ -210,7 +210,7 @@
                         <div style="position:relative; width:100px; height:75px;">
                             <img src="{{ $photo->temporaryUrl() }}" alt="preview" style="width:100%; height:100%; object-fit:cover; border-radius:6px; display:block;">
                             @if($index === 0)
-                                <span style="position:absolute; bottom:4px; left:4px; background:rgba(91,33,182,0.9); color:white; font-size:10px; padding:2px 6px; border-radius:4px;">Главное</span>
+                                <span style="position:absolute; bottom:4px; left:4px; background:rgba(91,33,182,0.9); color:white; font-size:10px; padding:2px 6px; border-radius:4px;">{{ __('messages.spot_form.photo_main') }}</span>
                             @endif
                         </div>
                     @endforeach
@@ -222,11 +222,11 @@
         <div class="spot-form__actions">
             <button type="submit" class="btn btn--primary btn--lg">
                 <span wire:loading.remove>
-                    {{ $spotId ? '💾 Сохранить изменения' : '🚀 Отправить на модерацию' }}
+                    {{ $spotId ? '💾 ' . __('messages.spot_form.btn_save') : '🚀 ' . __('messages.spot_form.btn_submit') }}
                 </span>
-                <span wire:loading>Сохраняем...</span>
+                <span wire:loading>{{ __('messages.spot_form.btn_saving') }}</span>
             </button>
-            <a href="{{ route('partner.spots') }}" class="btn btn--outline btn--lg">Отмена</a>
+            <a href="{{ route('partner.spots') }}" class="btn btn--outline btn--lg">{{ __('messages.spot_form.btn_cancel') }}</a>
         </div>
 
     </form>

@@ -2,17 +2,17 @@
     <div class="partner-page">
 
         <div class="partner-header">
-            <h2>Все заказы</h2>
-            <a href="{{ route('partner.dashboard') }}" class="btn btn--outline">← Назад</a>
+            <h2>{{ __('messages.partner.orders_title') }}</h2>
+            <a href="{{ route('partner.dashboard') }}" class="btn btn--outline">← {{ __('messages.partner.back') }}</a>
         </div>
 
         <div class="order-list__filters" style="margin-bottom:24px">
             @foreach([
-                ''                => 'Все',
-                'paid_pending'    => 'Новые',
-                'materials_ready' => 'Материалы готовы',
-                'active'          => 'Активные',
-                'completed'       => 'Завершённые',
+                ''                => __('messages.partner.filter_all'),
+                'paid_pending'    => __('messages.partner.filter_new'),
+                'materials_ready' => __('messages.order_status.materials_ready'),
+                'active'          => __('messages.partner.filter_active'),
+                'completed'       => __('messages.partner.filter_completed'),
             ] as $value => $label)
                 <button
                     wire:click="$set('status', '{{ $value }}')"
@@ -23,7 +23,7 @@
 
         @if($orders->isEmpty())
             <div class="spot-list__empty">
-                <p>Заказов не найдено</p>
+                <p>{{ __('messages.partner.orders_not_found') }}</p>
             </div>
         @else
             <div class="spot-list">
@@ -33,24 +33,24 @@
                             @if($item->spot->mainPhoto)
                                 <img src="{{ Storage::url($item->spot->mainPhoto->path) }}" alt="">
                             @else
-                                <div class="spot-row__photo-empty">Нет фото</div>
+                                <div class="spot-row__photo-empty">{{ __('messages.partner.no_photo') }}</div>
                             @endif
                         </div>
                         <div class="spot-row__info">
                             <div class="spot-row__title">{{ $item->spot->title }}</div>
                             <div class="spot-row__meta">
-                                Клиент: {{ $item->order->client->name }} ·
+                                {{ __('messages.partner.client_label') }} {{ $item->order->client->name }} ·
                                 {{ \Carbon\Carbon::parse($item->date_from)->format('d.m.Y') }}
                                 — {{ \Carbon\Carbon::parse($item->date_to)->format('d.m.Y') }}
                             </div>
                             <span class="order-status order-status--{{ $item->order->status }}">
                                 {{ match($item->order->status) {
-                                    'pending'         => 'Ожидает оплаты',
-                                    'paid_pending'    => 'Оплачен — ждёт материалов',
-                                    'materials_ready' => 'Материалы готовы',
-                                    'active'          => 'Активен',
-                                    'completed'       => 'Завершён',
-                                    'cancelled'       => 'Отменён',
+                                    'pending'         => __('messages.order_status.pending'),
+                                    'paid_pending'    => __('messages.order_status.paid_pending'),
+                                    'materials_ready' => __('messages.order_status.materials_ready'),
+                                    'active'          => __('messages.order_status.active'),
+                                    'completed'       => __('messages.order_status.completed'),
+                                    'cancelled'       => __('messages.order_status.cancelled'),
                                     default           => $item->order->status,
                                 } }}
                             </span>
@@ -59,7 +59,7 @@
                             <div style="font-size:18px; font-weight:700; color:#5B21B6">
                                 ${{ number_format($item->price * 0.9, 2) }}
                             </div>
-                            <div style="font-size:12px; color:#9ca3af">ваша доля (90%)</div>
+                            <div style="font-size:12px; color:#9ca3af">{{ __('messages.partner.your_share') }}</div>
                         </div>
                     </a>
                 @endforeach
