@@ -8,8 +8,8 @@
                 <span>AdSpot</span>
             </div>
 
-            <h2 class="auth-box__title">Создать аккаунт</h2>
-            <p class="auth-box__subtitle">Кто вы на платформе?</p>
+            <h2 class="auth-box__title">{{ __('messages.auth.register_title') }}</h2>
+            <p class="auth-box__subtitle">{{ __('messages.auth.register_subtitle') }}</p>
 
             <livewire:auth.register />
 

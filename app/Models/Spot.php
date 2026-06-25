@@ -56,4 +56,20 @@ class Spot extends Model
     {
         return $this->hasOne(SpotPhoto::class)->where('is_main', true);
     }
+    // Сколько платформа заработала на этой площадке (10% комиссия)
+    public function getTotalCommissionAttribute(): float
+    {
+        return $this->orderItems()
+            ->whereHas('order', fn($q) => $q->whereIn('status', ['active', 'completed']))
+            ->sum('commission');
+    }
+
+// Сколько партнёру причитается с этой площадки (90%, ещё не выплачено)
+    public function getPendingPayoutAttribute(): float
+    {
+        return $this->orderItems()
+            ->whereHas('order', fn($q) => $q->whereIn('status', ['active', 'completed']))
+            ->whereDoesntHave('payout')
+            ->sum('price');
+    }
 }

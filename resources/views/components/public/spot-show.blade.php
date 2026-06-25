@@ -133,10 +133,10 @@
                             <span>${{ number_format($spot->price_month / 30, 1) }} × {{ $days }} дней</span>
                             <span>${{ number_format($base_price, 2) }}</span>
                         </div>
-                        <div class="spot-show__calc-row">
-                            <span>Комиссия платформы (10%)</span>
-                            <span>${{ number_format($commission, 2) }}</span>
-                        </div>
+{{--                        <div class="spot-show__calc-row">--}}
+{{--                            <span>Комиссия платформы (10%)</span>--}}
+{{--                            <span>${{ number_format($commission, 2) }}</span>--}}
+{{--                        </div>--}}
                         <div class="spot-show__calc-total">
                             <span>Итого</span>
                             <span>${{ number_format($total, 2) }}</span>
