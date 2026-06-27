@@ -1005,7 +1005,7 @@ input, select, textarea {
 .map-popup__btn {
   display: block;
   background: #5B21B6;
-  color: white;
+  color: white !important;
   padding: 8px 14px;
   border-radius: 8px;
   font-size: 13px;

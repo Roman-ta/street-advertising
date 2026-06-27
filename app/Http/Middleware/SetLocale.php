@@ -12,7 +12,7 @@ class SetLocale
     {
         $locale = session('locale')
             ?? (auth()->check() ? auth()->user()->lang : null)
-            ?? 'ru';
+            ?? 'ro';
 
         App::setLocale($locale);
 

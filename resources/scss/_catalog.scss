@@ -281,7 +281,7 @@
     &__btn {
         display: block;
         background: $purple;
-        color: white;
+        color: white !important;
         padding: 8px 14px;
         border-radius: $radius-md;
         font-size: 13px;

@@ -17,20 +17,12 @@
                 default           => '📋',
             } }}
         </div>
-        <h2>Заказ #{{ $order->id }}</h2>
+        <h2>{{ __('messages.order_show.order_number', ['id' => $order->id]) }}</h2>
         <p>{{ $order->created_at->format('d.m.Y') }}</p>
     </div>
 
     <div class="order-show__status order-show__status--{{ $order->status }}">
-        {{ match($order->status) {
-            'pending'         => '⏳ Ожидает оплаты',
-            'paid_pending'    => '💳 Оплачен — загрузите рекламные материалы',
-            'materials_ready' => '📦 Материалы загружены — ожидаем монтажа',
-            'active'          => '🚀 Реклама размещена и работает',
-            'completed'       => '✅ Размещение завершено',
-            'cancelled'       => '❌ Отменён',
-            default           => $order->status,
-        } }}
+        {{ __('messages.order_show_status.' . $order->status) }}
     </div>
 
     <div class="order-show__items">
@@ -49,37 +41,37 @@
                     </div>
                     @if($item->spot->file_types_allowed)
                         <div style="font-size:12px; color:#9ca3af; margin-top:4px">
-                            Форматы: {{ implode(', ', array_map('strtoupper', $item->spot->file_types_allowed)) }}
+                            {{ __('messages.order_show.formats_label') }} {{ implode(', ', array_map('strtoupper', $item->spot->file_types_allowed)) }}
                         </div>
                     @endif
                 </div>
                 <div class="order-show__item-price">
-                    ${{ number_format($item->price + $item->commission, 2) }}
+                    {{ money($item->price + $item->commission, 2) }}
                 </div>
             </div>
         @endforeach
     </div>
 
     <div class="order-show__total">
-        <span>Итого</span>
-        <span>${{ number_format($order->total, 2) }}</span>
+        <span>{{ __('messages.order_show.total') }}</span>
+        <span>{{ money($order->total, 2) }}</span>
     </div>
 
     {{-- Оплата --}}
     @if($order->status === 'pending')
         <button wire:click="simulatePayment" class="btn btn--primary btn--full btn--lg">
-            <span wire:loading.remove>Перейти к оплате →</span>
-            <span wire:loading>Обрабатываем...</span>
+            <span wire:loading.remove>{{ __('messages.order_show.pay_button') }}</span>
+            <span wire:loading>{{ __('messages.order_show.paying') }}</span>
         </button>
-        <p class="order-show__hint">Вы будете перенаправлены на страницу безопасной оплаты</p>
+        <p class="order-show__hint">{{ __('messages.order_show.pay_hint') }}</p>
     @endif
 
     {{-- Загрузка материалов --}}
     @if($order->status === 'paid_pending')
         <div class="materials-upload">
-            <h3 class="materials-upload__title">📁 Загрузите рекламные материалы</h3>
+            <h3 class="materials-upload__title">📁 {{ __('messages.order_show.upload_materials_title') }}</h3>
             <p class="materials-upload__hint">
-                После загрузки партнёр получит уведомление и приступит к монтажу.
+                {{ __('messages.order_show.upload_materials_hint') }}
             </p>
 
             <div class="form__group">
@@ -110,8 +102,8 @@
                 class="btn btn--primary btn--full btn--lg"
                 {{ empty($uploadedFiles) ? 'disabled' : '' }}
             >
-                <span wire:loading.remove wire:target="uploadMaterials">Загрузить материалы</span>
-                <span wire:loading wire:target="uploadMaterials">Загружаем...</span>
+                <span wire:loading.remove wire:target="uploadMaterials">{{ __('messages.order_show.upload_btn') }}</span>
+                <span wire:loading wire:target="uploadMaterials">{{ __('messages.order_show.uploading') }}</span>
             </button>
         </div>
     @endif
@@ -119,7 +111,7 @@
     {{-- Загруженные файлы --}}
     @if($order->files->isNotEmpty())
         <div class="materials-list">
-            <h3 class="materials-list__title">Загруженные материалы</h3>
+            <h3 class="materials-list__title">{{ __('messages.order_show.uploaded_materials') }}</h3>
             @foreach($order->files as $file)
                 <div class="materials-list__item">
                     <span class="materials-list__icon">
@@ -133,7 +125,7 @@
                         </div>
                     </div>
                     <a href="{{ Storage::url($file->path) }}" download class="btn btn--outline btn--sm">
-                        Скачать
+                        {{ __('messages.order_show.download') }}
                     </a>
                 </div>
             @endforeach

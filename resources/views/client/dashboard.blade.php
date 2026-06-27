@@ -8,21 +8,21 @@
             </div>
             <div>
                 <div class="partner-welcome__name">{{ auth()->user()->name }}</div>
-                <div class="partner-welcome__role">Рекламодатель</div>
+                <div class="partner-welcome__role">{{ __('messages.client.role') }}</div>
             </div>
         </div>
         <a href="{{ route('home') }}" class="btn btn--primary">
-            + Найти площадку
+            + {{ __('messages.client.find_spot') }}
         </a>
     </div>
 
     {{-- Навигация --}}
     <nav class="partner-nav">
         <a href="{{ route('client.dashboard') }}" class="partner-nav__item partner-nav__item--active">
-            Обзор
+            {{ __('messages.client.nav_overview') }}
         </a>
         <a href="{{ route('client.orders') }}" class="partner-nav__item">
-            Мои заказы
+            {{ __('messages.client.nav_orders') }}
         </a>
     </nav>
 
@@ -30,37 +30,37 @@
     <div class="client-dashboard__stats">
         <div class="stat-card">
             <div class="stat-card__value">{{ $stats['total_orders'] }}</div>
-            <div class="stat-card__label">Всего заказов</div>
+            <div class="stat-card__label">{{ __('messages.client.stat_total_orders') }}</div>
         </div>
         <div class="stat-card stat-card--active">
             <div class="stat-card__value">{{ $stats['active_orders'] }}</div>
-            <div class="stat-card__label">Активных</div>
+            <div class="stat-card__label">{{ __('messages.client.stat_active') }}</div>
         </div>
         <div class="stat-card stat-card--pending">
             <div class="stat-card__value">{{ $stats['pending_orders'] }}</div>
-            <div class="stat-card__label">Ожидают оплаты</div>
+            <div class="stat-card__label">{{ __('messages.client.stat_pending') }}</div>
         </div>
         <div class="stat-card stat-card--money">
-            <div class="stat-card__value">${{ number_format($stats['total_spent'], 0) }}</div>
-            <div class="stat-card__label">Потрачено</div>
+            <div class="stat-card__value">{{ money($stats['total_spent'], 0) }}</div>
+            <div class="stat-card__label">{{ __('messages.client.stat_spent') }}</div>
         </div>
     </div>
 
     {{-- Последние заказы --}}
     <div class="client-dashboard__section">
         <div class="client-dashboard__section-header">
-            <h2>Последние заказы</h2>
+            <h2>{{ __('messages.client.recent_orders') }}</h2>
             <a href="{{ route('client.orders') }}" class="client-dashboard__see-all">
-                Все заказы →
+                {{ __('messages.client.all_orders') }} →
             </a>
         </div>
 
         @if($recent_orders->isEmpty())
             <div class="client-dashboard__empty">
                 <p style="font-size:48px; margin-bottom:16px">📋</p>
-                <p>У вас пока нет заказов</p>
+                <p>{{ __('messages.client.no_orders') }}</p>
                 <a href="{{ route('home') }}" class="btn btn--primary" style="margin-top:16px">
-                    Найти площадку
+                    {{ __('messages.client.find_spot') }}
                 </a>
             </div>
         @else
@@ -68,17 +68,9 @@
                 @foreach($recent_orders as $order)
                     <a href="{{ route('client.orders.show', $order->id) }}" class="order-card">
                         <div class="order-card__header">
-                            <span class="order-card__number">Заказ #{{ $order->id }}</span>
+                            <span class="order-card__number">{{ __('messages.client.order_number', ['id' => $order->id]) }}</span>
                             <span class="order-status order-status--{{ $order->status }}">
-                                {{ match($order->status) {
-                                    'pending'         => 'Ожидает оплаты',
-                                    'paid_pending'    => 'Оплачен',
-                                    'materials_ready' => 'Материалы загружены',
-                                    'active'          => 'Активен',
-                                    'completed'       => 'Завершён',
-                                    'cancelled'       => 'Отменён',
-                                    default           => $order->status,
-                                } }}
+                                {{ __('messages.order_status.' . $order->status) }}
                             </span>
                         </div>
                         <div class="order-card__items">
@@ -99,12 +91,12 @@
                                 </div>
                             @endforeach
                             @if($order->items->count() > 2)
-                                <p class="order-card__more">+ ещё {{ $order->items->count() - 2 }}</p>
+                                <p class="order-card__more">{{ __('messages.client.more_items', ['count' => $order->items->count() - 2]) }}</p>
                             @endif
                         </div>
                         <div class="order-card__footer">
                             <span class="order-card__date">{{ $order->created_at->format('d.m.Y') }}</span>
-                            <span class="order-card__total">${{ number_format($order->total, 2) }}</span>
+                            <span class="order-card__total">{{ money($order->total, 2) }}</span>
                         </div>
                     </a>
                 @endforeach

@@ -79,25 +79,28 @@
         <div class="catalog__grid-full">
             @foreach($spots as $spot)
                 <div class="spot-card-compact" id="spot-card-{{ $spot->id }}" onclick="focusSpotOnMap({{ $spot->id }}, {{ $spot->lat ?? 'null' }}, {{ $spot->lng ?? 'null' }})">
-                    <div class="spot-card-compact__image">
-                        @if($spot->mainPhoto)
-                            <img src="{{ Storage::url($spot->mainPhoto->path) }}" loading="lazy">
-                        @endif
-                        <span class="spot-card-compact__badge">{{ __('messages.types.' . $spot->type) }}</span>
-                    </div>
-                    <div class="spot-card-compact__body">
-                        <div class="spot-card-compact__title">{{ $spot->title }}</div>
-                        <div class="spot-card-compact__address">📍 {{ $spot->address }}</div>
-                        <div class="spot-card-compact__footer">
-                            <span class="spot-card-compact__price">${{ number_format($spot->price_month, 0) }}<span style="font-size:11px; color:#9ca3af; font-weight:400">{{ __('messages.spot.month_short') }}</span></span>
-                            <div style="display:flex; gap:6px">
-                                @if($spot->lat && $spot->lng)
-                                    <button type="button" class="spot-card-compact__map-btn" onclick="event.stopPropagation(); focusSpotOnMap({{ $spot->id }}, {{ $spot->lat }}, {{ $spot->lng }})">📍 {{ __('messages.catalog.on_map') }}</button>
-                                @endif
-                                <a href="{{ route('spots.show', $spot->id) }}" onclick="event.stopPropagation()" class="spot-card-compact__map-btn" style="background:#5B21B6; color:white">{{ __('messages.spot.details') }}</a>
+                    <a href="{{ route('spots.show', $spot->id) }}" onclick="event.stopPropagation()">
+                        <div class="spot-card-compact__image">
+                            @if($spot->mainPhoto)
+                                <img src="{{ Storage::url($spot->mainPhoto->path) }}" loading="lazy">
+                            @endif
+                            <span class="spot-card-compact__badge">{{ __('messages.types.' . $spot->type) }}</span>
+                        </div>
+
+                        <div class="spot-card-compact__body">
+                            <div class="spot-card-compact__title">{{ $spot->title }}</div>
+                            <div class="spot-card-compact__address">📍 {{ $spot->address }}</div>
+                            <div class="spot-card-compact__footer">
+                                <span class="spot-card-compact__price">${{ number_format($spot->price_month, 0) }}<span style="font-size:11px; color:#9ca3af; font-weight:400">{{ __('messages.spot.month_short') }}</span></span>
+                                <div style="display:flex; gap:6px">
+                                    @if($spot->lat && $spot->lng)
+                                        <button type="button" class="spot-card-compact__map-btn" onclick="event.stopPropagation(); focusSpotOnMap({{ $spot->id }}, {{ $spot->lat }}, {{ $spot->lng }})">📍 {{ __('messages.catalog.on_map') }}</button>
+                                    @endif
+                                    <a href="{{ route('spots.show', $spot->id) }}" onclick="event.stopPropagation()" class="spot-card-compact__map-btn" style="background:#5B21B6; color:white">{{ __('messages.spot.details') }}</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>
