@@ -6,8 +6,8 @@
             class="role-card {{ $role === 'client' ? 'role-card--active' : '' }}"
         >
             <span class="role-card__icon">🏢</span>
-            <span class="role-card__title">Рекламодатель</span>
-            <span class="role-card__desc">Ищу места для размещения рекламы</span>
+            <span class="role-card__title">{{ __('messages.auth.role_client_title') }}</span>
+            <span class="role-card__desc">{{ __('messages.auth.role_client_desc') }}</span>
         </button>
 
         <button
@@ -16,8 +16,8 @@
             class="role-card {{ $role === 'partner' ? 'role-card--active' : '' }}"
         >
             <span class="role-card__icon">📍</span>
-            <span class="role-card__title">Владелец площадок</span>
-            <span class="role-card__desc">Сдаю рекламные места в аренду</span>
+            <span class="role-card__title">{{ __('messages.auth.role_partner_title') }}</span>
+            <span class="role-card__desc">{{ __('messages.auth.role_partner_desc') }}</span>
         </button>
     </div>
 
@@ -27,44 +27,44 @@
 
     <form wire:submit="submit">
         <div class="form__group">
-            <label class="form__label">Имя / Название компании</label>
+            <label class="form__label">{{ __('messages.auth.name_label') }}</label>
             <input
                 type="text"
                 wire:model.live="name"
-                placeholder="SRL Compania Mea"
+                placeholder="{{ __('messages.auth.name_placeholder') }}"
                 class="form__input"
             >
             @error('name') <span class="form__error">{{ $message }}</span> @enderror
         </div>
 
         <div class="form__group">
-            <label class="form__label">Email</label>
+            <label class="form__label">{{ __('messages.auth.email_label') }}</label>
             <input
                 type="email"
                 wire:model.live="email"
-                placeholder="email@company.md"
+                placeholder="{{ __('messages.auth.email_placeholder') }}"
                 class="form__input"
             >
             @error('email') <span class="form__error">{{ $message }}</span> @enderror
         </div>
 
         <div class="form__group">
-            <label class="form__label">Пароль</label>
+            <label class="form__label">{{ __('messages.auth.password_label') }}</label>
             <input
                 type="password"
                 wire:model="password"
-                placeholder="Минимум 8 символов"
+                placeholder="{{ __('messages.auth.password_placeholder') }}"
                 class="form__input"
             >
             @error('password') <span class="form__error">{{ $message }}</span> @enderror
         </div>
 
         <div class="form__group">
-            <label class="form__label">Повторите пароль</label>
+            <label class="form__label">{{ __('messages.auth.password_confirm_label') }}</label>
             <input
                 type="password"
                 wire:model="password_confirmation"
-                placeholder="Повторите пароль"
+                placeholder="{{ __('messages.auth.password_confirm_ph') }}"
                 class="form__input"
             >
         </div>
@@ -75,13 +75,13 @@
             style="{{ !$role ? 'background:#e5e7eb; color:#9ca3af; cursor:not-allowed' : '' }}"
         >
             <span wire:loading.remove>
-                {{ $role === 'partner' ? '🚀 Стать партнёром' : '✨ Создать аккаунт' }}
+                {{ $role === 'partner' ? __('messages.auth.become_partner_btn') : __('messages.auth.create_account_btn') }}
             </span>
-            <span wire:loading>Создаём аккаунт...</span>
+            <span wire:loading>{{ __('messages.auth.creating_account') }}</span>
         </button>
     </form>
 
     <div class="auth-box__footer">
-        Уже есть аккаунт? <a href="{{ route('login') }}">Войти</a>
+        {{ __('messages.auth.has_account') }} <a href="{{ route('login') }}">{{ __('messages.auth.login_link') }}</a>
     </div>
 </div>

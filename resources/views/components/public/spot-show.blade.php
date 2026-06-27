@@ -1,7 +1,6 @@
-
 <div class="spot-show">
 
-    <a href="{{ route('home') }}" class="spot-show__back">← Назад к каталогу</a>
+    <a href="{{ route('home') }}" class="spot-show__back">{{ __('messages.spot_show.back') }}</a>
 
     <div class="spot-show__layout">
 
@@ -17,67 +16,49 @@
                     @if($spot->photos->count() > 1)
                         <div class="spot-show__thumbnails">
                             @foreach($spot->photos->skip(1) as $photo)
-                                <img
-                                    src="{{ Storage::url($photo->path) }}"
-                                    class="spot-show__thumbnail"
-                                >
+                                <img src="{{ Storage::url($photo->path) }}" class="spot-show__thumbnail">
                             @endforeach
                         </div>
                     @endif
                 @else
-                    <div class="spot-show__no-photo">Нет фото</div>
+                    <div class="spot-show__no-photo">{{ __('messages.spot_show.no_photo') }}</div>
                 @endif
             </div>
 
             <h1 class="spot-show__title">{{ $spot->title }}</h1>
-            <p class="spot-show__address">📍 {{ $spot->address }}, {{ $spot->city }}</p>
+            <p class="spot-show__address">📍 {{ $spot->address }}, {{ __('messages.cities.' . $spot->city) }}</p>
 
             @if($spot->description)
                 <div class="spot-show__description">
-                    <h3>Описание</h3>
+                    <h3>{{ __('messages.spot_show.description') }}</h3>
                     <p>{{ $spot->description }}</p>
                 </div>
             @endif
 
             <div class="spot-show__specs">
-                <h3>Характеристики</h3>
+                <h3>{{ __('messages.spot_show.specs') }}</h3>
                 <div class="spot-show__specs-grid">
                     <div class="spot-show__spec-item">
-                        <span>Тип</span>
-                        <p>{{ match($spot->type) {
-                            'billboard'  => 'Билборд',
-                            'lightbox'   => 'Лайтбокс',
-                            'led_screen' => 'LED экран',
-                            'banner'     => 'Баннер',
-                            'transport'  => 'Транспорт',
-                            'indoor'     => 'В помещении',
-                            'digital'    => 'Digital',
-                            'event'      => 'Event',
-                            default      => $spot->type,
-                        } }}</p>
+                        <span>{{ __('messages.spot_show.spec_type') }}</span>
+                        <p>{{ __('messages.types.' . $spot->type) }}</p>
                     </div>
                     @if($spot->size_w && $spot->size_h)
                         <div class="spot-show__spec-item">
-                            <span>Размер</span>
+                            <span>{{ __('messages.spot_show.spec_size') }}</span>
                             <p>{{ $spot->size_w }}×{{ $spot->size_h }} м</p>
                         </div>
                     @endif
                     <div class="spot-show__spec-item">
-                        <span>Трафик</span>
-                        <p>{{ match($spot->traffic) {
-                            'high'   => 'Высокий',
-                            'medium' => 'Средний',
-                            'low'    => 'Низкий',
-                            default  => $spot->traffic,
-                        } }}</p>
+                        <span>{{ __('messages.spot_show.spec_traffic') }}</span>
+                        <p>{{ __('messages.traffic.' . $spot->traffic) }}</p>
                     </div>
                     <div class="spot-show__spec-item">
-                        <span>Подсветка</span>
-                        <p>{{ $spot->lighting ? 'Есть' : 'Нет' }}</p>
+                        <span>{{ __('messages.spot_show.spec_lighting') }}</span>
+                        <p>{{ $spot->lighting ? __('messages.spot_show.lighting_yes') : __('messages.spot_show.lighting_no') }}</p>
                     </div>
                     @if($spot->file_types_allowed)
                         <div class="spot-show__spec-item spot-show__spec-item--full">
-                            <span>Форматы материалов</span>
+                            <span>{{ __('messages.spot_show.spec_formats') }}</span>
                             <p>{{ implode(', ', array_map('strtoupper', $spot->file_types_allowed)) }}</p>
                         </div>
                     @endif
@@ -90,15 +71,15 @@
             <div class="spot-show__booking">
 
                 <div class="spot-show__price">
-                    ${{ number_format($spot->price_month, 0) }}
+                    {{ money($spot->price_month, 0) }}
                 </div>
                 <div class="spot-show__price-hint">
-                    в месяц · ${{ number_format($spot->price_month / 30, 1) }} в день
+                    {{ __('messages.spot_show.price_per_day', ['price' => money($spot->price_month / 30, 1)]) }}
                 </div>
 
                 <div class="spot-show__dates">
                     <div>
-                        <label>Дата начала</label>
+                        <label>{{ __('messages.spot_show.date_from_label') }}</label>
                         <input
                             type="date"
                             wire:model="date_from"
@@ -107,7 +88,7 @@
                         >
                     </div>
                     <div>
-                        <label>Дата окончания</label>
+                        <label>{{ __('messages.spot_show.date_to_label') }}</label>
                         <input
                             type="date"
                             wire:model="date_to"
@@ -123,23 +104,19 @@
 
                 @if(!empty($occupiedDates))
                     <div class="alert alert--warning">
-                        ⚠ Некоторые даты уже заняты
+                        {{ __('messages.spot_show.dates_occupied') }}
                     </div>
                 @endif
 
                 @if($days > 0 && !$error)
                     <div class="spot-show__calc">
                         <div class="spot-show__calc-row">
-                            <span>${{ number_format($spot->price_month / 30, 1) }} × {{ $days }} дней</span>
-                            <span>${{ number_format($base_price, 2) }}</span>
+                            <span>{{ __('messages.spot_show.days_x', ['price' => money($spot->price_month / 30, 1), 'days' => $days]) }}</span>
+                            <span>{{ money($base_price, 2) }}</span>
                         </div>
-{{--                        <div class="spot-show__calc-row">--}}
-{{--                            <span>Комиссия платформы (10%)</span>--}}
-{{--                            <span>${{ number_format($commission, 2) }}</span>--}}
-{{--                        </div>--}}
                         <div class="spot-show__calc-total">
-                            <span>Итого</span>
-                            <span>${{ number_format($total, 2) }}</span>
+                            <span>{{ __('messages.spot_show.total') }}</span>
+                            <span>{{ money($total, 2) }}</span>
                         </div>
                     </div>
                 @endif
@@ -147,26 +124,26 @@
                 @if($days > 0 && !$error)
                     @auth
                         <button wire:click="addToCart" class="btn btn--primary btn--full btn--lg">
-                            <span wire:loading.remove>Добавить в корзину</span>
-                            <span wire:loading>Добавляем...</span>
+                            <span wire:loading.remove>{{ __('messages.spot_show.add_to_cart') }}</span>
+                            <span wire:loading>{{ __('messages.spot_show.adding') }}</span>
                         </button>
                     @else
                         <a href="{{ route('login') }}" class="btn btn--primary btn--full btn--lg">
-                            Войти для бронирования
+                            {{ __('messages.spot_show.login_to_book') }}
                         </a>
                     @endauth
                 @else
-                    <button disabled class="btn btn--full btn--lg" style="background:$gray-200; color:$gray-400; cursor:not-allowed">
-                        Выберите даты
+                    <button disabled class="btn btn--full btn--lg" style="background:#e5e7eb; color:#9ca3af; cursor:not-allowed">
+                        {{ __('messages.spot_show.select_dates') }}
                     </button>
                 @endif
 
                 <p class="spot-show__hint">
-                    Деньги заморозятся — спишутся только после монтажа
+                    {{ __('messages.spot_show.frozen_hint') }}
                 </p>
 
                 <div class="spot-show__owner">
-                    <p>Владелец площадки</p>
+                    <p>{{ __('messages.spot_show.owner') }}</p>
                     <p>{{ $spot->partner->name }}</p>
                 </div>
 

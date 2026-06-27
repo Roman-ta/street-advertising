@@ -1,33 +1,39 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Новый пароль — AdSpot</title>
-</head>
-<body>
-<h2>Установить новый пароль</h2>
+@extends('layouts.app')
+@section('title', __('messages.auth.reset_title') . ' — AdSpot')
+@section('content')
+    <div class="auth-page">
+        <div class="auth-box">
 
-<form method="POST" action="{{ route('password.update') }}">
-    @csrf
-    <input type="hidden" name="token" value="{{ $token }}">
+            <div class="auth-box__logo"><span>AdSpot</span></div>
 
-    <div>
-        <label>Email</label><br>
-        <input type="email" name="email" required>
-        @error('email') <p style="color:red">{{ $message }}</p> @enderror
+            <h2 class="auth-box__title">{{ __('messages.auth.reset_title') }}</h2>
+            <p class="auth-box__subtitle">{{ __('messages.auth.reset_subtitle') }}</p>
+
+            <form method="POST" action="{{ route('password.update') }}">
+                @csrf
+                <input type="hidden" name="token" value="{{ $token }}">
+
+                <div class="form__group">
+                    <label class="form__label">{{ __('messages.auth.email_label') }}</label>
+                    <input type="email" name="email" required class="form__input">
+                    @error('email') <span class="form__error">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label">{{ __('messages.auth.new_password_label') }}</label>
+                    <input type="password" name="password" required class="form__input">
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label">{{ __('messages.auth.password_confirm_label') }}</label>
+                    <input type="password" name="password_confirmation" required class="form__input">
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--full btn--lg">
+                    {{ __('messages.auth.save_password_btn') }}
+                </button>
+            </form>
+
+        </div>
     </div>
-    <br>
-    <div>
-        <label>Новый пароль</label><br>
-        <input type="password" name="password" required>
-    </div>
-    <br>
-    <div>
-        <label>Повторите пароль</label><br>
-        <input type="password" name="password_confirmation" required>
-    </div>
-    <br>
-    <button type="submit">Сохранить пароль</button>
-</form>
-</body>
-</html>
+@endsection
