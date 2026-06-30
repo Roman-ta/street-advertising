@@ -1,19 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\SpotTypes\Pages;
+namespace App\Filament\Resources\SpotTypeResource\Pages;
 
-use App\Filament\Resources\SpotTypes\SpotTypeResource;
-use Filament\Actions\DeleteAction;
+use App\Filament\Resources\SpotTypeResource;
 use Filament\Resources\Pages\EditRecord;
 
 class EditSpotType extends EditRecord
 {
     protected static string $resource = SpotTypeResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            DeleteAction::make(),
-        ];
-    }
 }

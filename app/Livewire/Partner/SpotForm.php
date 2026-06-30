@@ -28,6 +28,9 @@ class SpotForm extends Component
     public string $traffic     = 'medium';
     public bool   $lighting    = false;
     public array  $file_types_allowed = [];
+    public $spotTypes;
+    public string $min_rental_days = '7';
+    public array $existingPhotos = []; // фото уже сохранённые в БД (для отображения/удаления)
     public string $lat = '';
     public string $lng = '';
 
@@ -47,6 +50,7 @@ class SpotForm extends Component
             'description'  => 'nullable|string|max:2000',
             'traffic'      => 'required|in:low,medium,high',
             'photos.*'     => 'nullable|image|max:5120', // 5MB каждое
+            'min_rental_days' => 'required|integer|min:7|max:365',
             'lat' => 'nullable|numeric',
             'lng' => 'nullable|numeric',
         ];
@@ -65,24 +69,36 @@ class SpotForm extends Component
     // Если редактируем — загружаем данные
     public function mount(?int $spotId = null): void
     {
+        $this->spotTypes = \App\Models\SpotType::where('is_active', true)->orderBy('sort_order')->get();
         if ($spotId) {
             $spot = Spot::where('id', $spotId)
                 ->where('partner_id', Auth::id())
+                ->with('photos')
                 ->firstOrFail();
 
-            $this->spotId            = $spot->id;
-            $this->title             = $spot->title;
-            $this->type              = $spot->type;
-            $this->address           = $spot->address;
-            $this->city              = $spot->city;
-            $this->district          = $spot->district ?? '';
-            $this->size_w            = $spot->size_w ?? '';
-            $this->size_h            = $spot->size_h ?? '';
-            $this->price_month       = $spot->price_month;
-            $this->description       = $spot->description ?? '';
-            $this->traffic           = $spot->traffic;
-            $this->lighting          = $spot->lighting;
-            $this->file_types_allowed = $spot->file_types_allowed ?? [];
+            $this->spotId             = $spot->id;
+            $this->title               = $spot->title;
+            $this->type                = $spot->type;
+            $this->address              = $spot->address;
+            $this->city                 = $spot->city;
+            $this->district             = $spot->district ?? '';
+            $this->size_w               = $spot->size_w ?? '';
+            $this->size_h               = $spot->size_h ?? '';
+            $this->price_month          = $spot->price_month;
+            $this->description          = $spot->description ?? '';
+            $this->traffic               = $spot->traffic;
+            $this->lighting              = $spot->lighting;
+            $this->file_types_allowed    = $spot->file_types_allowed ?? [];
+            $this->lat                  = $spot->lat ?? '';
+            $this->lng                  = $spot->lng ?? '';
+            $this->min_rental_days = (string) ($spot->min_rental_days ?? 7);
+
+            // Загружаем существующие фото для отображения
+            $this->existingPhotos = $spot->photos->map(fn($p) => [
+                'id'      => $p->id,
+                'path'    => $p->path,
+                'is_main' => $p->is_main,
+            ])->toArray();
         }
     }
 
@@ -105,6 +121,7 @@ class SpotForm extends Component
             'lighting'     => $this->lighting,
             'file_types_allowed' => $this->file_types_allowed,
             'status'       => 'moderation', // всегда на модерацию
+            'min_rental_days' => $this->min_rental_days,
             'lat' => $this->lat ?: null,
             'lng' => $this->lng ?: null,
         ];
@@ -122,6 +139,8 @@ class SpotForm extends Component
 
         // Сохраняем фото
         if (!empty($this->photos)) {
+            $hasMainAlready = $spot->photos()->where('is_main', true)->exists();
+
             foreach ($this->photos as $index => $photo) {
                 $path = $photo->store('spots', 'public');
 
@@ -129,7 +148,7 @@ class SpotForm extends Component
                     'spot_id'    => $spot->id,
                     'path'       => $path,
                     'sort_order' => $index,
-                    'is_main'    => $index === 0, // первое фото — главное
+                    'is_main'    => !$hasMainAlready && $index === 0, // главное только если ещё нет главного
                 ]);
             }
         }
@@ -140,6 +159,57 @@ class SpotForm extends Component
         );
 
         $this->redirect(route('partner.spots'));
+    }
+    public function deletePhoto(int $photoId): void
+    {
+        $photo = SpotPhoto::where('id', $photoId)
+            ->whereHas('spot', fn($q) => $q->where('partner_id', Auth::id()))
+            ->firstOrFail();
+
+        // Удаляем файл с диска
+        if (\Illuminate\Support\Facades\Storage::disk('public')->exists($photo->path)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($photo->path);
+        }
+
+        $wasMain = $photo->is_main;
+        $spotId  = $photo->spot_id;
+
+        $photo->delete();
+
+        // Если удалили главное фото — назначаем главным следующее по порядку
+        if ($wasMain) {
+            $nextPhoto = SpotPhoto::where('spot_id', $spotId)->orderBy('sort_order')->first();
+            if ($nextPhoto) {
+                $nextPhoto->update(['is_main' => true]);
+            }
+        }
+
+        // Обновляем список в компоненте без перезагрузки страницы
+        $this->existingPhotos = collect($this->existingPhotos)
+            ->reject(fn($p) => $p['id'] === $photoId)
+            ->values()
+            ->toArray();
+
+        session()->flash('success', 'Фото удалено');
+    }
+
+    public function setMainPhoto(int $photoId): void
+    {
+        $photo = SpotPhoto::where('id', $photoId)
+            ->whereHas('spot', fn($q) => $q->where('partner_id', Auth::id()))
+            ->firstOrFail();
+
+        // Снимаем главное со всех фото этой площадки
+        SpotPhoto::where('spot_id', $photo->spot_id)->update(['is_main' => false]);
+        $photo->update(['is_main' => true]);
+
+        // Обновляем локальный массив
+        $this->existingPhotos = collect($this->existingPhotos)
+            ->map(function($p) use ($photoId) {
+                $p['is_main'] = $p['id'] === $photoId;
+                return $p;
+            })
+            ->toArray();
     }
 
     public function render()

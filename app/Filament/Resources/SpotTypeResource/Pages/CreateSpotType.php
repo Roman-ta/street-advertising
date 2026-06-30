@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\SpotTypes\Pages;
+namespace App\Filament\Resources\SpotTypeResource\Pages;
 
-use App\Filament\Resources\SpotTypes\SpotTypeResource;
+use App\Filament\Resources\SpotTypeResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateSpotType extends CreateRecord

@@ -78,6 +78,15 @@ class SpotShow extends Component
             return;
         }
 
+        $days = $from->diffInDays($to) + 1;
+
+        // НОВОЕ: проверка минимального срока аренды
+        if ($days < $this->spot->min_rental_days) {
+            $this->error = "Минимальный срок аренды для этой площадки — {$this->spot->min_rental_days} дн.";
+            $this->days = $this->base_price = $this->commission = $this->total = 0;
+            return;
+        }
+
         // Проверяем нет ли занятых дней в диапазоне
         $current = $from->copy();
         while ($current->lte($to)) {
@@ -89,7 +98,7 @@ class SpotShow extends Component
             $current->addDay();
         }
 
-        $this->days       = $from->diffInDays($to) + 1;
+        $this->days       = $days;
         $pricePerDay      = $this->spot->price_month / 30;
         $this->base_price = round($pricePerDay * $this->days, 2);
         $this->commission = round($this->base_price * 0.10, 2);

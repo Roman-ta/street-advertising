@@ -46,6 +46,9 @@
                     </div>
 
                     <div class="spot-row__actions">
+                        <a href="{{ route('partner.spots.availability', $spot->id) }}" class="btn btn--outline btn--sm">
+                            📅 Календарь
+                        </a>
                         <a href="{{ route('partner.spots.edit', $spot->id) }}" class="btn btn--outline btn--sm">
                             Редактировать
                         </a>

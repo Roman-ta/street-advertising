@@ -9,6 +9,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Actions\EditAction;
 
 class SpotTypeResource extends Resource
 {
@@ -69,7 +70,7 @@ class SpotTypeResource extends Resource
             ->reorderable('sort_order')
             ->defaultSort('sort_order')
             ->actions([
-                Tables\Actions\EditAction::make()->label('Изменить'),
+                EditAction::make()->label('Изменить'),
             ]);
     }
 

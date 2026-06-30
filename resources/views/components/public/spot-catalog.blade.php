@@ -12,21 +12,16 @@
                 >
 
                 <div class="filters__types">
-                    @foreach([
-                        ''           => __('messages.catalog.all'),
-                        'billboard'  => __('messages.types.billboard'),
-                        'lightbox'   => __('messages.types.lightbox'),
-                        'led_screen' => __('messages.types.led_screen'),
-                        'banner'     => __('messages.types.banner'),
-                        'transport'  => __('messages.types.transport'),
-                        'indoor'     => __('messages.types.indoor'),
-                        'digital'    => __('messages.types.digital'),
-                        'event'      => __('messages.types.event'),
-                    ] as $value => $label)
+                    <button
+                        wire:click="$set('type', '')"
+                        class="filters__type-btn {{ $type === '' ? 'filters__type-btn--active' : '' }}"
+                    >{{ __('messages.catalog.all') }}</button>
+
+                    @foreach($spotTypes as $spotType)
                         <button
-                            wire:click="$set('type', '{{ $value }}')"
-                            class="filters__type-btn {{ $type === $value ? 'filters__type-btn--active' : '' }}"
-                        >{{ $label }}</button>
+                            wire:click="$set('type', '{{ $spotType->slug }}')"
+                            class="filters__type-btn {{ $type === $spotType->slug ? 'filters__type-btn--active' : '' }}"
+                        >{{ $spotType->icon }} {{ $spotType->name }}</button>
                     @endforeach
                 </div>
 
@@ -91,7 +86,12 @@
                             <div class="spot-card-compact__title">{{ $spot->title }}</div>
                             <div class="spot-card-compact__address">📍 {{ $spot->address }}</div>
                             <div class="spot-card-compact__footer">
-                                <span class="spot-card-compact__price">${{ number_format($spot->price_month, 0) }}<span style="font-size:11px; color:#9ca3af; font-weight:400">{{ __('messages.spot.month_short') }}</span></span>
+                                @if($spot->min_rental_days > 7)
+                                    <div style="font-size:11px; color:#9ca3af; margin-top:4px;">
+                                        от {{ $spot->min_rental_days }} дн.
+                                    </div>
+                                @endif
+                                <span class="spot-card-compact__price">${{ money($spot->price_month, 0) }}<span style="font-size:11px; color:#9ca3af; font-weight:400">{{ __('messages.spot.month_short') }}</span></span>
                                 <div style="display:flex; gap:6px">
                                     @if($spot->lat && $spot->lng)
                                         <button type="button" class="spot-card-compact__map-btn" onclick="event.stopPropagation(); focusSpotOnMap({{ $spot->id }}, {{ $spot->lat }}, {{ $spot->lng }})">📍 {{ __('messages.catalog.on_map') }}</button>

@@ -18,14 +18,9 @@
             <div class="form__group">
                 <label class="form__label">{{ __('messages.spot_form.type_label') }}</label>
                 <select wire:model="type" class="form__select">
-                    <option value="billboard">📋 {{ __('messages.spot_form.type_billboard') }}</option>
-                    <option value="lightbox">💡 {{ __('messages.spot_form.type_lightbox') }}</option>
-                    <option value="led_screen">📺 {{ __('messages.spot_form.type_led') }}</option>
-                    <option value="banner">🏷 {{ __('messages.spot_form.type_banner') }}</option>
-                    <option value="transport">🚌 {{ __('messages.spot_form.type_transport') }}</option>
-                    <option value="indoor">🏢 {{ __('messages.spot_form.type_indoor') }}</option>
-                    <option value="digital">📱 {{ __('messages.spot_form.type_digital') }}</option>
-                    <option value="event">🎪 {{ __('messages.spot_form.type_event') }}</option>
+                    @foreach($spotTypes as $spotType)
+                        <option value="{{ $spotType->slug }}">{{ $spotType->icon }} {{ $spotType->name }}</option>
+                    @endforeach
                 </select>
                 @error('type') <span class="form__error">{{ $message }}</span> @enderror
             </div>
@@ -131,21 +126,34 @@
 
         {{-- Цена --}}
         <div class="spot-form__section">
-            <div class="spot-form__section-title">{{ __('messages.spot_form.section_price') }}</div>
+            <div class="spot-form__section-title">Стоимость</div>
 
             <div class="form__group">
-                <label class="form__label">{{ __('messages.spot_form.price_label') }}</label>
+                <label class="form__label">Цена в месяц (lei) *</label>
                 <div style="position:relative">
-                    <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#9ca3af; font-weight:600">$</span>
                     <input
                         type="number"
                         wire:model="price_month"
                         placeholder="1500"
                         class="form__input"
-                        style="padding-left:28px"
                     >
                 </div>
                 @error('price_month') <span class="form__error">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="form__group">
+                <label class="form__label">Минимальный срок аренды (дней) *</label>
+                <input
+                    type="number"
+                    wire:model="min_rental_days"
+                    min="1"
+                    placeholder="1"
+                    class="form__input"
+                >
+                <p style="font-size:12px; color:#9ca3af; margin-top:4px;">
+                    Клиент не сможет арендовать площадку на меньший срок
+                </p>
+                @error('min_rental_days') <span class="form__error">{{ $message }}</span> @enderror
             </div>
         </div>
 
@@ -181,6 +189,45 @@
         <div class="spot-form__section">
             <div class="spot-form__section-title">{{ __('messages.spot_form.section_photos') }}</div>
 
+            {{-- Текущие фото (только при редактировании) --}}
+            @if(!empty($existingPhotos))
+                <div style="margin-bottom:16px">
+                    <p style="font-size:13px; color:#6b7280; margin-bottom:8px;">Текущие фото:</p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        @foreach($existingPhotos as $photo)
+                            <div style="position:relative; width:110px;">
+                                <img
+                                    src="{{ Storage::url($photo['path']) }}"
+                                    style="width:110px; height:82px; object-fit:cover; border-radius:8px; border:2px solid {{ $photo['is_main'] ? '#5B21B6' : '#e5e7eb' }};"
+                                >
+                                @if($photo['is_main'])
+                                    <span style="position:absolute; top:4px; left:4px; background:rgba(91,33,182,0.9); color:white; font-size:9px; padding:2px 6px; border-radius:4px;">
+                                Главное
+                            </span>
+                                @endif
+
+                                <div style="display:flex; gap:4px; margin-top:4px;">
+                                    @if(!$photo['is_main'])
+                                        <button
+                                            type="button"
+                                            wire:click="setMainPhoto({{ $photo['id'] }})"
+                                            style="flex:1; font-size:10px; background:#f3f4f6; border:none; border-radius:4px; padding:4px; cursor:pointer; color:#374151;"
+                                            title="Сделать главным"
+                                        >★</button>
+                                    @endif
+                                    <button
+                                        type="button"
+                                        wire:click="deletePhoto({{ $photo['id'] }})"
+                                        wire:confirm="Удалить это фото?"
+                                        style="flex:1; font-size:10px; background:#FEE2E2; border:none; border-radius:4px; padding:4px; cursor:pointer; color:#991B1B;"
+                                    >Удалить</button>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+            {{-- Загрузка новых фото --}}
             <div class="spot-form__upload-area" onclick="document.getElementById('photos-input').click()" style="cursor:pointer;">
                 <div style="font-size:40px; margin-bottom:8px;">📷</div>
                 <strong style="font-size:15px; color:#374151; display:block; margin-bottom:6px;">{{ __('messages.spot_form.photo_click') }}</strong>
@@ -207,7 +254,7 @@
             @if(!empty($photos))
                 <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
                     @foreach($photos as $index => $photo)
-                        <div style="position:relative; width:100px; height:75px;">
+                        <div style="position:relative; width:200px; height:150px;">
                             <img src="{{ $photo->temporaryUrl() }}" alt="preview" style="width:100%; height:100%; object-fit:cover; border-radius:6px; display:block;">
                             @if($index === 0)
                                 <span style="position:absolute; bottom:4px; left:4px; background:rgba(91,33,182,0.9); color:white; font-size:10px; padding:2px 6px; border-radius:4px;">{{ __('messages.spot_form.photo_main') }}</span>

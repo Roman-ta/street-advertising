@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\SpotTypes\Pages;
+namespace App\Filament\Resources\SpotTypeResource\Pages;
 
-use App\Filament\Resources\SpotTypes\SpotTypeResource;
+use App\Filament\Resources\SpotTypeResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -12,8 +12,6 @@ class ListSpotTypes extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        return [CreateAction::make()->label('Добавить тип')];
     }
 }

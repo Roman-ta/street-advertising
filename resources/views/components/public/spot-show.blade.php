@@ -76,7 +76,11 @@
                 <div class="spot-show__price-hint">
                     {{ __('messages.spot_show.price_per_day', ['price' => money($spot->price_month / 30, 1)]) }}
                 </div>
-
+                @if($spot->min_rental_days > 7)
+                    <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:10px 14px; margin-bottom:12px; font-size:13px; color:#1E40AF;">
+                        ℹ️ Минимальный срок аренды: {{ $spot->min_rental_days }} дн.
+                    </div>
+                @endif
                 <div class="spot-show__dates">
                     <div>
                         <label>{{ __('messages.spot_show.date_from_label') }}</label>

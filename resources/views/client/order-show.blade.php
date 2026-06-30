@@ -74,6 +74,16 @@
                 {{ __('messages.order_show.upload_materials_hint') }}
             </p>
 
+            <div class="materials-upload__design">
+                <div>
+                    <strong style="font-size:14px; color:#92400E;">🎨 Нет качественного макета?</strong>
+                    <p style="font-size:13px; color:#92400E; margin:2px 0 0;">Закажите дизайн у нашей команды</p>
+                </div>
+                <button class="materials-upload__btn" type="button" disabled >
+                    Заказать дизайнера<br><span>скоро</span>
+                </button>
+            </div>
+
             <div class="form__group">
                 <input type="file" wire:model="uploadedFiles" multiple class="form__input">
                 @error('uploadedFiles.*')

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('spots', function (Blueprint $table) {
-            //
+            $table->unsignedInteger('min_rental_days')->default(1)->after('price_month');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('spots', function (Blueprint $table) {
-            //
+            $table->dropColumn('min_rental_days');
         });
     }
 };

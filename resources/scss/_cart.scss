@@ -283,6 +283,32 @@
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+    &__design{
+        background:#FEF3C7;
+        border:1px dashed #F59E0B;
+        border-radius:8px;
+        padding:14px 16px;
+        margin-bottom:16px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+    }
+    &__btn{
+        background:#e5e7eb;
+        color:#9ca3af;
+        border:none;
+        padding:8px 16px;
+        border-radius:6px;
+        font-size:13px;
+        font-weight:600;
+        cursor:not-allowed;
+        white-space:nowrap;
+        span{
+            font-size:10px;
+            font-weight:400;
+        }
+    }
 
     &__file-size { color: $gray-400; flex-shrink: 0; }
 }
