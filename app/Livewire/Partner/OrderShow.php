@@ -59,8 +59,8 @@ class OrderShow extends Component
                 ->diffInDays(Carbon::parse($this->item->date_to)) + 1;
 
         $this->item->update([
-            'placement_started_at' => $now,
-            'placement_ends_at'    => $now->copy()->addDays($days),
+            'placement_started_at' => Carbon::parse($this->item->date_from),
+            'placement_ends_at'    => Carbon::parse($this->item->date_to),
         ]);
 
         // Меняем статус заказа
@@ -70,6 +70,8 @@ class OrderShow extends Component
         $this->photos = [];
         $this->successMessage = 'Фотоотчёт загружен! Таймер аренды запущен.';
     }
+
+
 
     public function render()
     {

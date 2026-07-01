@@ -37,6 +37,10 @@ class SpotCatalog extends Component
 
     public function render()
     {
+        $spotTypes = \App\Models\SpotType::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
         $spots = Spot::query()
             ->where('status', 'active')
             ->with(['mainPhoto', 'partner'])
@@ -54,6 +58,6 @@ class SpotCatalog extends Component
             ->latest()
             ->paginate(12);
 
-        return view('public.spot-catalog', compact('spots'));
+        return view('components.public.spot-catalog', compact('spots', 'spotTypes'));
     }
 }

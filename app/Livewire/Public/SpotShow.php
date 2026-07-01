@@ -10,7 +10,7 @@ use Livewire\Component;
 class SpotShow extends Component
 {
     public Spot $spot;
-
+    public $relatedSpots;
     // Выбранные даты
     public ?string $date_from = null;
     public ?string $date_to   = null;
@@ -25,7 +25,7 @@ class SpotShow extends Component
     public float $total       = 0;
 
     public ?string $error = null;
-
+    public int $minRentalDays = 1;
     public function mount(int $id): void
     {
         $this->spot = Spot::where('id', $id)
@@ -33,7 +33,26 @@ class SpotShow extends Component
             ->with(['photos', 'partner', 'availabilities'])
             ->firstOrFail();
 
+        $this->minRentalDays = $this->spot->min_rental_days ?? 1;
         $this->loadOccupiedDates();
+
+        // Похожие площадки — того же типа или того же города, исключая текущую
+        $this->relatedSpots = Spot::where('status', 'active')
+            ->where('id', '!=', $this->spot->id)
+            ->where(function($q) {
+                $q->where('type', $this->spot->type)
+                    ->orWhere('city', $this->spot->city);
+            })
+            ->with('mainPhoto')
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+
+        if (session('extend_spot_id') == $id) {
+            $this->date_from = session('extend_date_from');
+            session()->forget(['extend_spot_id', 'extend_date_from']);
+            $this->updatedDateFrom();
+        }
     }
 
     private function loadOccupiedDates(): void
@@ -116,7 +135,7 @@ class SpotShow extends Component
             $this->error = 'Выберите корректный период';
             return;
         }
-
+        session(['cart_back_url' => url()->previous()]);
         // Сохраняем в сессию (корзина)
         $cart = session()->get('cart', []);
 
@@ -139,6 +158,24 @@ class SpotShow extends Component
         session()->put('cart', $cart);
 
         $this->redirect(route('cart'));
+    }
+    public function recalculate(): void
+    {
+        $this->calculatePrice();
+    }
+    public function setDates(string $from, string $to): void
+    {
+        $this->date_from = $from ?: null;
+        $this->date_to   = $to   ?: null;
+        $this->error     = null;
+        $this->days      = 0;
+        $this->base_price = 0;
+        $this->commission = 0;
+        $this->total      = 0;
+
+        if ($this->date_from && $this->date_to) {
+            $this->calculatePrice();
+        }
     }
 
     public function render()

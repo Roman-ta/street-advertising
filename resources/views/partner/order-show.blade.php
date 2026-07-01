@@ -50,12 +50,13 @@
     {{-- Таймер если активен --}}
     @if($item->placement_started_at)
         <div style="background:#D1FAE5; border:1px solid #6EE7B7; border-radius:12px; padding:16px; margin-bottom:24px">
-            <h3 style="color:#065F46; margin:0 0 8px; font-size:16px">🚀 {{ __('messages.partner.ad_active') }}</h3>
+            <h3 style="color:#065F46; margin:0 0 8px; font-size:16px">🚀 Фотоотчёт загружен</h3>
             <div style="font-size:14px; color:#065F46">
-                {{ __('messages.partner.start_label') }} {{ \Carbon\Carbon::parse($item->placement_started_at)->format('d.m.Y H:i') }}
+                Период размещения: {{ \Carbon\Carbon::parse($item->date_from)->format('d.m.Y') }}
+                — {{ \Carbon\Carbon::parse($item->date_to)->format('d.m.Y') }}
             </div>
-            <div style="font-size:14px; color:#065F46">
-                {{ __('messages.partner.end_label') }} {{ \Carbon\Carbon::parse($item->placement_ends_at)->format('d.m.Y H:i') }}
+            <div style="font-size:13px; color:#059669; margin-top:4px">
+                ✓ Фотоотчёт загружен {{ $item->updated_at->format('d.m.Y в H:i') }}
             </div>
         </div>
     @endif

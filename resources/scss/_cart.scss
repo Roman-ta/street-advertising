@@ -119,8 +119,33 @@
         margin-top: $spacing-md;
         color: $gray-600;
         font-size: $font-size-sm;
+        text-decoration: none;
+        transition: color $transition;
 
         &:hover { color: $purple; }
+
+        // Заметная версия
+        &--prominent {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: $spacing-md;
+            padding: $spacing-sm $spacing-md;
+            border: 1px solid $gray-200;
+            border-radius: $radius-md;
+            color: $gray-800;
+            font-size: $font-size-sm;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all $transition;
+
+            &:hover {
+                border-color: $purple;
+                color: $purple;
+                background: $purple-pale;
+            }
+        }
     }
 
     &__empty {

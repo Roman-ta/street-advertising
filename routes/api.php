@@ -3,11 +3,18 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/spots/map', function () {
-    $spots = \App\Models\Spot::where('status', 'active')
+    $query = \App\Models\Spot::where('status', 'active')
         ->whereNotNull('lat')
         ->whereNotNull('lng')
-        ->with('mainPhoto')
-        ->get(['id', 'title', 'type', 'address', 'price_month', 'lat', 'lng']);
+        ->with('mainPhoto');
+
+    // Фильтры из запроса
+    if (request('type'))    $query->where('type', request('type'));
+    if (request('city'))    $query->where('city', request('city'));
+    if (request('traffic')) $query->where('traffic', request('traffic'));
+    if (request('price_max')) $query->where('price_month', '<=', request('price_max'));
+
+    $spots = $query->get(['id', 'title', 'type', 'address', 'price_month', 'lat', 'lng']);
 
     return response()->json($spots->map(fn($spot) => [
         'id'      => $spot->id,

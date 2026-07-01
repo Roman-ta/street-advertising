@@ -96,7 +96,27 @@
                         </div>
                         <div class="order-card__footer">
                             <span class="order-card__date">{{ $order->created_at->format('d.m.Y') }}</span>
-                            <span class="order-card__total">{{ money($order->total, 2) }}</span>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                @if($order->status === 'active')
+                                    @php
+                                        $endDate  = \Carbon\Carbon::parse($order->items->first()?->date_to);
+                                        $daysLeft = \Carbon\Carbon::today()->diffInDays($endDate, false);
+                                    @endphp
+                                    @if($daysLeft >= 0)
+                                        <span style="
+                    font-size:12px;
+                    font-weight:600;
+                    padding:3px 8px;
+                    border-radius:20px;
+                    background:{{ $daysLeft <= 3 ? '#FEF3C7' : '#D1FAE5' }};
+                    color:{{ $daysLeft <= 3 ? '#92400E' : '#065F46' }};
+                ">
+                    {{ $daysLeft === 0 ? 'Сегодня последний день' : "Осталось {$daysLeft} дн." }}
+                </span>
+                                    @endif
+                                @endif
+                                <span class="order-card__total">{{ money($order->total, 2) }}</span>
+                            </div>
                         </div>
                     </a>
                 @endforeach
