@@ -12,5 +12,6 @@
                 На главную
             </a>
         </div>
+
     </div>
 @endsection
