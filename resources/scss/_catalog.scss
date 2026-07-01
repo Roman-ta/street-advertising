@@ -69,7 +69,7 @@
         cursor: pointer;
         transition: all $transition;
 
-        &:hover { border-color: $purple; color: $purple; }
+        &:hover { border-color: $purple; }
 
         &--active {
             background: $purple;
@@ -336,13 +336,13 @@
     border-radius: $radius-lg;
     overflow: hidden;
     background: $white;
-    cursor: pointer;
     transition: all $transition;
+    display: flex;              // ← flex для прижатия footer
+    flex-direction: column;     // ← колонка
 
     &:hover {
         border-color: $purple;
         box-shadow: $shadow-md;
-        transform: translateY(-2px);
     }
 
     &--active {
@@ -355,6 +355,7 @@
         background: $gray-100;
         position: relative;
         overflow: hidden;
+        flex-shrink: 0;         // ← не сжимать фото
 
         img {
             width: 100%;
@@ -378,11 +379,13 @@
         border-radius: $radius-full;
         font-size: 11px;
         font-weight: 600;
-        backdrop-filter: blur(4px);
     }
 
     &__body {
         padding: 14px;
+        display: flex;              // ← flex
+        flex-direction: column;     // ← колонка
+        flex: 1;                    // ← занять всё оставшееся место
     }
 
     &__title {
@@ -390,9 +393,12 @@
         font-weight: 700;
         color: $gray-800;
         margin-bottom: 4px;
-        white-space: nowrap;
+        // Ограничиваем до 2 строк
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
+        min-height: 44px;           // ← фиксированная высота для 2 строк
     }
 
     &__address {
@@ -409,6 +415,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 8px;
+        margin-top: auto;           // ← прижать к низу!
     }
 
     &__price {
@@ -416,13 +423,6 @@
         font-weight: 800;
         color: $purple;
         white-space: nowrap;
-    }
-
-    // Контейнер для кнопок
-    &__footer > div {
-        display: flex;
-        gap: 6px;
-        flex-shrink: 0;
     }
 
     &__map-btn {
@@ -439,26 +439,20 @@
         transition: all $transition;
         text-decoration: none;
         white-space: nowrap;
-
-        // Вариант "На карте" — outline-стиль
         background: $purple-pale;
         color: $purple;
 
         &:hover {
             background: $purple;
             color: $white;
-            transform: translateY(-1px);
         }
     }
 
-    // Вариант "Подробнее" — заполненная кнопка (переопределяем инлайн-стиль через !important на случай конфликта)
     a.spot-card-compact__map-btn {
         background: $purple !important;
         color: $white !important;
 
-        &:hover {
-            background: $purple-light !important;
-        }
+        &:hover { background: $purple-light !important; }
     }
 }
 .filters__select {

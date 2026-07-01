@@ -56,7 +56,20 @@ class OrderShow extends Component
         $this->uploadedFiles = [];
         $this->successMessage = 'Материалы успешно загружены! Партнёр получит уведомление.';
     }
+    public function extendOrder(): void
+    {
+        // Берём первую позицию заказа
+        $item = $this->order->items->first();
+        if (!$item) return;
 
+        // Сохраняем в сессию данные для продления
+        session([
+            'extend_spot_id'   => $item->spot_id,
+            'extend_date_from' => \Carbon\Carbon::parse($item->date_to)->addDay()->format('Y-m-d'),
+        ]);
+
+        $this->redirect(route('spots.show', $item->spot_id));
+    }
     public function render()
     {
         return view('client.order-show');

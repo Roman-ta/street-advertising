@@ -55,7 +55,9 @@
                     <span wire:loading.remove>{{ __('messages.cart.checkout_btn') }}</span>
                     <span wire:loading>{{ __('messages.cart.processing') }}</span>
                 </button>
-                <a href="{{ route('home') }}" class="cart__continue">{{ __('messages.cart.continue') }}</a>
+                <a href="{{ $backUrl }}" class="cart__continue cart__continue--prominent">
+                    {{ __('messages.cart.continue') }}
+                </a>
             </div>
 
         </div>

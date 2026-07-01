@@ -812,7 +812,6 @@ input, select, textarea {
 }
 .filters__type-btn:hover {
   border-color: #5B21B6;
-  color: #5B21B6;
 }
 .filters__type-btn--active {
   background: #5B21B6;
@@ -1064,13 +1063,13 @@ input, select, textarea {
   border-radius: 12px;
   overflow: hidden;
   background: #FFFFFF;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
 }
 .spot-card-compact:hover {
   border-color: #5B21B6;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
 }
 .spot-card-compact--active {
   border-color: #5B21B6;
@@ -1081,6 +1080,7 @@ input, select, textarea {
   background: #F3F4F6;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .spot-card-compact__image img {
   width: 100%;
@@ -1101,19 +1101,23 @@ input, select, textarea {
   border-radius: 9999px;
   font-size: 11px;
   font-weight: 600;
-  backdrop-filter: blur(4px);
 }
 .spot-card-compact__body {
   padding: 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .spot-card-compact__title {
   font-size: 15px;
   font-weight: 700;
   color: #374151;
   margin-bottom: 4px;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  min-height: 44px;
 }
 .spot-card-compact__address {
   font-size: 12px;
@@ -1128,17 +1132,13 @@ input, select, textarea {
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+  margin-top: auto;
 }
 .spot-card-compact__price {
   font-size: 18px;
   font-weight: 800;
   color: #5B21B6;
   white-space: nowrap;
-}
-.spot-card-compact__footer > div {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
 }
 .spot-card-compact__map-btn {
   display: inline-flex;
@@ -1160,7 +1160,6 @@ input, select, textarea {
 .spot-card-compact__map-btn:hover {
   background: #5B21B6;
   color: #FFFFFF;
-  transform: translateY(-1px);
 }
 .spot-card-compact a.spot-card-compact__map-btn {
   background: #5B21B6 !important;
@@ -1306,9 +1305,31 @@ input, select, textarea {
   margin-top: 16px;
   color: #6B7280;
   font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
 }
 .cart__continue:hover {
   color: #5B21B6;
+}
+.cart__continue--prominent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 8px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+.cart__continue--prominent:hover {
+  border-color: #5B21B6;
+  color: #5B21B6;
+  background: #EDE9FE;
 }
 .cart__empty {
   text-align: center;
@@ -1462,6 +1483,32 @@ input, select, textarea {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.materials-upload__design {
+  background: #FEF3C7;
+  border: 1px dashed #F59E0B;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.materials-upload__btn {
+  background: #e5e7eb;
+  color: #9ca3af;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: not-allowed;
+  white-space: nowrap;
+}
+.materials-upload__btn span {
+  font-size: 10px;
+  font-weight: 400;
 }
 .materials-upload__file-size {
   color: #9CA3AF;

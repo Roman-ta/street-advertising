@@ -87,7 +87,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/partner/spots/{spotId}/edit', fn($spotId) => view('pages.partner.spot-edit', compact('spotId')))->name('partner.spots.edit');
     Route::get('/partner/orders', fn() => view('pages.partner.orders'))->name('partner.orders');
     Route::get('/partner/orders/{id}', fn($id) => view('pages.partner.order-show', compact('id')))->name('partner.orders.show');
-
+    Route::get('/partner/spots/{spotId}/availability', fn($spotId) => view('pages.partner.spot-availability', compact('spotId')))
+        ->name('partner.spots.availability');
     // Админ → редирект на Filament
     Route::get('/admin/dashboard', fn() => redirect('/admin'))->name('admin.dashboard');
 });

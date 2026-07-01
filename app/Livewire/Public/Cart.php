@@ -13,10 +13,11 @@ class Cart extends Component
 {
     public array $items = [];
     public float $total = 0;
-
+    public ?string $backUrl = null;
     public function mount(): void
     {
         $this->loadCart();
+        $this->backUrl = session('cart_back_url', route('home'));
     }
 
     private function loadCart(): void

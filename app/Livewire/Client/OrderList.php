@@ -21,7 +21,7 @@ class OrderList extends Component
     public function render()
     {
         $orders = Order::where('client_id', Auth::id())
-            ->with(['items.spot.mainPhoto'])
+            ->with(['items.spot.partner', 'items.spot.mainPhoto'])
             ->when($this->status, fn($q) => $q->where('status', $this->status))
             ->latest()
             ->paginate(10);

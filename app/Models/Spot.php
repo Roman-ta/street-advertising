@@ -19,7 +19,7 @@ class Spot extends Model
     protected $fillable = [
         'partner_id', 'title', 'type', 'address', 'lat', 'lng',
         'city', 'district', 'size_w', 'size_h', 'price_month',
-        'description', 'lighting', 'traffic',
+        'description', 'lighting', 'traffic', 'min_rental_days',
         'file_types_allowed', 'status', 'translations',
     ];
 
@@ -71,5 +71,9 @@ class Spot extends Model
             ->whereHas('order', fn($q) => $q->whereIn('status', ['active', 'completed']))
             ->whereDoesntHave('payout')
             ->sum('price');
+    }
+    public function spotType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(SpotType::class, 'type', 'slug');
     }
 }
